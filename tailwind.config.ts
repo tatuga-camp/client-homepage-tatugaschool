@@ -18,7 +18,11 @@ const config: Config = {
       },
       colors: {
         "primary-color": "#6149CD",
+        "primary-color-hover": "#4f3bbd",
+        "primary-color-focus": "#7563D1",
+        "icon-color": "#383767",
         "secondary-color": "#569DF8",
+        "background-color": "#F7F8FA",
         "info-color": "#2E90FA",
         "success-color": "#27AE60",
         "warning-color": "#FFCD1B",

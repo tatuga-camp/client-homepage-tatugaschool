@@ -4,13 +4,14 @@ import React from "react";
 
 function HomepageFooter() {
   return (
-    <footer className="h-max py-20 bg-[#15171A] grid grid-cols-6 gap-5 font-Anuphan">
+    <footer className="h-max py-20 bg-[#15171A] grid grid-cols-1 md:grid-cols-4 xl:grid-cols-6 gap-5 font-Anuphan">
       <section className="col-span-2 flex flex-col items-start justify-start gap-5 p-10">
         <div className="flex gap-2">
           <div className="w-10 h-10 bg-white rounded-full relative">
             <Image
               src="/icon.svg"
               fill
+              sizes="(max-width: 768px) 100vw, 33vw"
               alt="logo tatuga school"
               className="object-contain"
             />
@@ -55,10 +56,18 @@ function HomepageFooter() {
       </section>
       <section className="flex flex-col items-start justify-start gap-2 p-10">
         <h1 className=" font-bold text-white">Resources</h1>
-        <Link href="/auth/sign-in" className="text-gray-400 mt-2 ">
+        <Link
+          target="_blank"
+          href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-in`}
+          className="text-gray-400 mt-2 "
+        >
           Login
         </Link>
-        <Link href="/auth/sign-up" className="text-gray-400 ">
+        <Link
+          target="_blank"
+          href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-up`}
+          className="text-gray-400 "
+        >
           Register
         </Link>
         <Link href="/about-us" className="text-gray-400 ">

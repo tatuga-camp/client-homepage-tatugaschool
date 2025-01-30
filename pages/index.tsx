@@ -8,6 +8,7 @@ import { Pagination, Autoplay, Grid } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/grid";
+import Head from "next/head";
 const features = [
   {
     title: "Unlimited Storage & No Expired File",
@@ -35,10 +36,37 @@ const features = [
 export default function Home() {
   return (
     <Layout>
-      <header className="w-full min-h-96 py-5 px-20 flex items-center justify-center font-Anuphan gap-40 p-2">
-        <section className="w-full max-w-[30rem] flex flex-col gap-1">
+      <Head>
+        <title>Tatuga School</title>
+        <meta
+          name="description"
+          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
+        />
+        <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Tatuga School" />
+        <meta
+          property="og:description"
+          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/icon.svg" />
+
+        <meta property="twitter:title" content="Tatuga School" />
+        <meta
+          property="twitter:description"
+          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
+        />
+
+        <meta property="twitter:image" content="/icon.svg" />
+        <meta name="twitter:card" content="summary" />
+      </Head>
+      <header
+        className="w-full min-h-96 py-5 px-20 md:px-5 flex-col md:flex-row
+       flex items-center justify-center font-Anuphan gap-2 md:gap-10 lg:gap-40 p-2"
+      >
+        <section className="w-96 md:w-8/12 p-2 text-center  md:max-w-[30rem] flex flex-col gap-1">
           <h3 className="font-bold text-primary-color">Tatuga School</h3>
-          <h1 className="font-bold text-6xl text-black">
+          <h1 className="font-bold text-4xl md:text-6xl text-black">
             Beyond School & Classroom
           </h1>
           <p className="text-gray-500 font-medium">
@@ -46,18 +74,19 @@ export default function Home() {
             methods and materials for students.
           </p>
         </section>
-        <section className="w-96 h-96 relative">
+        <section className="w-80 md:w-52 md:h-52 lg:w-96 h-80 lg:h-96 relative">
           <Image
             onDragStart={(e) => e.preventDefault()}
             src="/images/hero.png"
             fill
+            sizes="(max-width: 768px) 100vw, 33vw"
             alt="hero"
           />
         </section>
       </header>
       <main className="my-20 flex flex-col gap-10 font-Anuphan">
-        <nav className="w-full h-28  bg-[#F5F3FF] grid grid-cols-5">
-          <p className="col-span-2 font-semibold text-center flex items-center px-40">
+        <nav className="w-full h-full py-2 md:py-1 md:h-28 md:p-3 p-0  bg-[#F5F3FF] grid grid-cols-1 gap-5 md:grid-cols-4  xl:grid-cols-5">
+          <p className="xl:col-span-2 text-base md:text-xs lg:text-base font-semibold text-center flex items-center px-10 md:px-0 ">
             With these amount of features, Tatuga School is the best choice for
             your students and your school.
           </p>
@@ -74,7 +103,7 @@ export default function Home() {
             <span>Number of Student</span>
           </section>
         </nav>
-        <section className="w-full flex items-center justify-center gap-10">
+        <section className="w-full flex items-center md:flex-row flex-col justify-center gap-10">
           <div
             onDragStart={(e) => e.preventDefault()}
             className="w-80 h-96 relative"
@@ -86,7 +115,7 @@ export default function Home() {
               alt="feature1"
             />
           </div>
-          <div className="w-96 flex flex-col items-start justify-center gap-1">
+          <div className="w-80 md:w-96 flex flex-col items-start justify-center gap-1">
             <h3 className="text-sm font-bold text-secondary-color">
               Tatuga School
             </h3>
@@ -106,7 +135,7 @@ export default function Home() {
             </Link>
           </div>
         </section>
-        <section className="w-full p-5 px-10 grid gap-5 grid-cols-4">
+        <section className="w-full p-5 md:px-10 grid gap-5 grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
           <div className="flex flex-col gap-1 justify-center items-start">
             <h1 className="text-sm text-secondary-color font-bold">Feature</h1>
             <h1 className="text-3xl font-bold">
@@ -126,7 +155,7 @@ export default function Home() {
               },
 
               768: {
-                slidesPerView: 3,
+                slidesPerView: 2,
               },
               1024: {
                 slidesPerView: 3,
@@ -143,7 +172,7 @@ export default function Home() {
             centeredSlides={true}
             grabCursor={true}
             modules={[Pagination, Autoplay]}
-            className="bg-transparent col-span-3 h-96 w-full "
+            className="bg-transparent col-span-2 xl:col-span-3 h-96 w-full "
           >
             {features.map((feature, index) => {
               return (
