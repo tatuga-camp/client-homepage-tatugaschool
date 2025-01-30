@@ -69,7 +69,7 @@ function Index() {
       </Head>
       <header className="w-full md:flex-row px-5 py-10 md:items-center font-Anuphan flex justify-center flex-col gap-5">
         <section className="flex flex-col md:w-96 gap-3">
-          <h1 className="text-4xl font-bold">Let's talk to us</h1>
+          <h1 className="text-4xl font-bold">Let&apos;s talk to us</h1>
           <h4 className="text-gray-500 font-medium text-sm">
             We are ready to help you, please choose the contact method that you
             want to use and we will respond as soon as possible.
