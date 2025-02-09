@@ -54,10 +54,10 @@ function HomepageNavbar() {
             </a>
             <a
               target="_blank"
-              href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-in`}
+              href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}`}
               className="w-20 h-10 text-white 0 hover:scale-110 transition duration-100 bg-primary-color flex items-center justify-center rounded-md"
             >
-              Login
+              Let's Go
             </a>
           </div>
         </div>

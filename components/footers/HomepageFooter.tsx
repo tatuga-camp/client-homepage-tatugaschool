@@ -22,9 +22,9 @@ function HomepageFooter() {
           Tatuga School is a platform that provides a variety of learning
           methods and materials for students.
         </p>
-        <p className="text-gray-400 font-medium">
-          © 2024 Tatuga School. All rights reserved.
-        </p>
+        <a href="https://tatugacamp.com" className="text-gray-400 font-medium">
+          © 2024 Tatuga Camp LP. All rights reserved.
+        </a>
       </section>
       <section className="flex flex-col items-start justify-start gap-2 p-10">
         <h1 className=" font-bold text-white">Support</h1>
