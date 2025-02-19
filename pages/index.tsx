@@ -48,6 +48,7 @@ export default function Home() {
           property="og:description"
           content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
         />
+        <meta property="og:site_name" content="Tatuga School" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/icon.svg" />
 
