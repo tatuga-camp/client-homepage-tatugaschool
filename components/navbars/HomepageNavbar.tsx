@@ -31,8 +31,8 @@ function HomepageNavbar() {
         </div>
       </Link>
       <section className="w-full overflow-auto h-max py-2 md:overflow-visible md:w-max">
-        <div className="w-max flex items-center justify-center gap-2  md:gap-10 lg:gap-20">
-          <div className="flex items-center gap-5">
+        <div className="grow flex items-center justify-end gap-2  md:gap-10 lg:gap-20">
+          <div className="hidden md:flex items-center gap-5">
             {menuNavbars.map((menu, index) => (
               <Link
                 key={index}
@@ -55,9 +55,9 @@ function HomepageNavbar() {
             <a
               target="_blank"
               href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}`}
-              className="w-20 h-10 text-white 0 hover:scale-110 transition duration-100 bg-primary-color flex items-center justify-center rounded-md"
+              className="w-max px-2 h-10 text-white 0 hover:scale-110 transition duration-100 bg-primary-color flex items-center justify-center rounded-md"
             >
-              Let&apos;s Go
+              Teachers Go
             </a>
           </div>
         </div>

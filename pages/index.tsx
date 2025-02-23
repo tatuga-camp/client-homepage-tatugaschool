@@ -65,7 +65,17 @@ export default function Home() {
         className="w-full min-h-96 py-5 px-20 md:px-5 flex-col md:flex-row
        flex items-center justify-center font-Anuphan gap-2 md:gap-10 lg:gap-40 p-2"
       >
-        <section className="w-96 md:w-8/12 p-2 text-center  md:max-w-[30rem] flex flex-col gap-1">
+        <section className="w-96 md:w-8/12 p-2 text-center items-center  md:max-w-[30rem] flex flex-col gap-1">
+          <a
+            target="_blank"
+            href={`${process.env.NEXT_PUBLIC_STUDENT_CLIENT_URL}`}
+            className="w-max px-2 h-10 text-white 0 hover:scale-110 transition duration-100 bg-primary-color flex items-center justify-center rounded-md"
+          >
+            Students Go
+          </a>
+          <span className="text-sm mb-5 text-gray-500">
+            เข้าสู่รายวิชาสำหรับนักเรียน
+          </span>
           <h3 className="font-bold text-primary-color">Tatuga School</h3>
           <h1 className="font-bold text-4xl md:text-6xl text-black">
             Beyond School & Classroom
