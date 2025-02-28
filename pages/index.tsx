@@ -62,7 +62,7 @@ export default function Home() {
         <meta name="twitter:card" content="summary" />
       </Head>
       <header
-        className="w-full min-h-96 py-5 px-20 md:px-5 flex-col md:flex-row
+        className="w-full min-h-96 py-5 px-20 md:px-5 flex-col lg:flex-row
        flex items-center justify-center font-Anuphan gap-2 md:gap-10 lg:gap-40 p-2"
       >
         <section className="w-96 md:w-8/12 p-2 text-center items-center  md:max-w-[30rem] flex flex-col gap-1">
@@ -77,7 +77,7 @@ export default function Home() {
             เข้าสู่รายวิชาสำหรับนักเรียน
           </span>
           <h3 className="font-bold text-primary-color">Tatuga School</h3>
-          <h1 className="font-bold text-4xl md:text-6xl text-black">
+          <h1 className="font-bold text-4xl  xl:text-6xl text-black">
             Beyond School & Classroom
           </h1>
           <p className="text-gray-500 font-medium">
@@ -85,14 +85,16 @@ export default function Home() {
             methods and materials for students.
           </p>
         </section>
-        <section className="w-80 md:w-52 md:h-52 lg:w-96 h-80 lg:h-96 relative">
-          <Image
-            onDragStart={(e) => e.preventDefault()}
-            src="/images/hero.png"
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            alt="hero"
-          />
+        <section className="w-80 md:w-[30rem] md:h-72  lg:w-[40rem] lg:h-60  xl:w-[28rem] h-80 xl:h-60 relative">
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/aZ8dskE93ZA?si=k8evOLwOk-Su0j-o"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
         </section>
       </header>
       <main className="my-20 flex flex-col gap-10 font-Anuphan">
