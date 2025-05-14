@@ -1,3 +1,5 @@
+// pages/privacy-policy.js
+
 const PrivacyPolicyPage = () => {
   return (
     <div className="bg-white min-h-screen py-8 sm:py-12">
@@ -61,16 +63,16 @@ const PrivacyPolicyPage = () => {
               <li>
                 <strong>Affiliate</strong> means an entity that controls, is
                 controlled by or is under common control with a party, where
-                "control" means ownership of 50% or more of the shares, equity
-                interest or other securities entitled to vote for election of
-                directors or other managing authority.
+                &quot;control&quot; means ownership of 50% or more of the
+                shares, equity interest or other securities entitled to vote for
+                election of directors or other managing authority.
               </li>
               <li>
-                <strong>Company</strong> (referred to as either "the Company",
-                "We", "Us" or "Our" in this Agreement) refers to
-                ห้างหุ้นส่วนจำกัด ทาทูก้าแคมป์ / Tatuga Camp Limited
-                Partnership, 879 หมู่ที่ 3 ตำบลโพธิ์กลาง อำเภอเมืองนครราชสีมา
-                จังหวัดนครราชสีมา.
+                <strong>Company</strong> (referred to as either &quot;the
+                Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot;
+                in this Agreement) refers to ห้างหุ้นส่วนจำกัด ทาทูก้าแคมป์ /
+                Tatuga Camp Limited Partnership, 879 หมู่ที่ 3 ตำบลโพธิ์กลาง
+                อำเภอเมืองนครราชสีมา จังหวัดนครราชสีมา.
               </li>
               <li>
                 <strong>Cookies</strong> are small files that are placed on Your
@@ -161,7 +163,7 @@ const PrivacyPolicyPage = () => {
                 Usage Data is collected automatically when using the Service.
               </p>
               <p className="text-gray-700 leading-relaxed mb-2">
-                Usage Data may include information such as Your Device's
+                Usage Data may include information such as Your Device&apos;s
                 Internet Protocol address (e.g. IP address), browser type,
                 browser version, the pages of our Service that You visit, the
                 time and date of Your visit, the time spent on those pages,
@@ -201,16 +203,16 @@ const PrivacyPolicyPage = () => {
               If You decide to register through or otherwise grant us access to
               a Third-Party Social Media Service, We may collect Personal data
               that is already associated with Your Third-Party Social Media
-              Service's account, such as Your name, Your email address, Your
-              activities or Your contact list associated with that account.
+              Service&apos;s account, such as Your name, Your email address,
+              Your activities or Your contact list associated with that account.
             </p>
             <p className="text-gray-700 leading-relaxed">
               You may also have the option of sharing additional information
-              with the Company through Your Third-Party Social Media Service's
-              account. If You choose to provide such information and Personal
-              Data, during registration or otherwise, You are giving the Company
-              permission to use, share, and store it in a manner consistent with
-              this Privacy Policy.
+              with the Company through Your Third-Party Social Media
+              Service&apos;s account. If You choose to provide such information
+              and Personal Data, during registration or otherwise, You are
+              giving the Company permission to use, share, and store it in a
+              manner consistent with this Privacy Policy.
             </p>
           </div>
         </section>
@@ -247,11 +249,11 @@ const PrivacyPolicyPage = () => {
             </li>
           </ul>
           <p className="text-gray-700 leading-relaxed mb-2">
-            Cookies can be "Persistent" or "Session" Cookies. Persistent Cookies
-            remain on Your personal computer or mobile device when You go
-            offline, while Session Cookies are deleted as soon as You close Your
-            web browser. Learn more about cookies on the Privacy Policies
-            website article.
+            Cookies can be &quot;Persistent&quot; or &quot;Session&quot;
+            Cookies. Persistent Cookies remain on Your personal computer or
+            mobile device when You go offline, while Session Cookies are deleted
+            as soon as You close Your web browser. Learn more about cookies on
+            the Privacy Policies website article.
           </p>
           <p className="text-gray-700 leading-relaxed mb-3">
             We use both Session and Persistent Cookies for the purposes set out
@@ -346,11 +348,11 @@ const PrivacyPolicyPage = () => {
             <li>
               <strong>To contact You:</strong> To contact You by email,
               telephone calls, SMS, or other equivalent forms of electronic
-              communication, such as a mobile application's push notifications
-              regarding updates or informative communications related to the
-              functionalities, products or contracted services, including the
-              security updates, when necessary or reasonable for their
-              implementation.
+              communication, such as a mobile application&apos;s push
+              notifications regarding updates or informative communications
+              related to the functionalities, products or contracted services,
+              including the security updates, when necessary or reasonable for
+              their implementation.
             </li>
             <li>
               <strong>To provide You</strong> with news, special offers and
@@ -454,7 +456,7 @@ const PrivacyPolicyPage = () => {
           </h2>
           <p className="text-gray-700 leading-relaxed mb-2">
             Your information, including Personal Data, is processed at the
-            Company's operating offices and in any other places where the
+            Company&apos;s operating offices and in any other places where the
             parties involved in the processing are located. It means that this
             information may be transferred to — and maintained on — computers
             located outside of Your state, province, country or other
@@ -565,7 +567,7 @@ const PrivacyPolicyPage = () => {
 
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-            Children's Privacy
+            Children&apos;s Privacy
           </h2>
           <p className="text-gray-700 leading-relaxed mb-2">
             Our Service does not address anyone under the age of 13. We do not
@@ -579,7 +581,7 @@ const PrivacyPolicyPage = () => {
           <p className="text-gray-700 leading-relaxed">
             If We need to rely on consent as a legal basis for processing Your
             information and Your country requires consent from a parent, We may
-            require Your parent's consent before We collect and use that
+            require Your parent&apos;s consent before We collect and use that
             information.
           </p>
         </section>
@@ -591,7 +593,7 @@ const PrivacyPolicyPage = () => {
           <p className="text-gray-700 leading-relaxed mb-2">
             Our Service may contain links to other websites that are not
             operated by Us. If You click on a third party link, You will be
-            directed to that third party's site. We strongly advise You to
+            directed to that third party&apos;s site. We strongly advise You to
             review the Privacy Policy of every site You visit.
           </p>
           <p className="text-gray-700 leading-relaxed">
@@ -611,8 +613,8 @@ const PrivacyPolicyPage = () => {
           </p>
           <p className="text-gray-700 leading-relaxed mb-2">
             We will let You know via email and/or a prominent notice on Our
-            Service, prior to the change becoming effective and update the "Last
-            updated" date at the top of this Privacy Policy.
+            Service, prior to the change becoming effective and update the
+            &quot;Last updated&quot; date at the top of this Privacy Policy.
           </p>
           <p className="text-gray-700 leading-relaxed">
             You are advised to review this Privacy Policy periodically for any
