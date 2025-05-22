@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../../layouts/HomepageLayout";
 import Head from "next/head";
 import Image from "next/image";
@@ -8,14 +8,15 @@ import {
   MdOutlineChat,
   MdOutlineMail,
 } from "react-icons/md";
+import TawkToChat from "../../components/TawkToChat";
 const contactLists = [
   {
     title: "Email us",
     description:
-      "at support@tatugaschool.com and we will respond as soon as possible.",
+      "at permlap@tatugacamp.com and we will respond as soon as possible.",
     icon: MdOutlineMail,
     type: "email",
-    value: "support@tatugaschool.com",
+    value: "permlap@tatugacamp.com",
   },
   {
     title: "Message us on Facebook",
@@ -23,7 +24,7 @@ const contactLists = [
       "Our facebook page is Tatuga School, you can chat with us there.",
     icon: MdFacebook,
     type: "facebook",
-    value: "https://www.facebook.com/tatugaschool",
+    value: "https://www.facebook.com/profile.php?id=61573841157485",
   },
   {
     title: "Phone us",
@@ -39,10 +40,11 @@ const contactLists = [
       "You can chat with us here, we will respond as soon as possible.",
     icon: MdOutlineChat,
     type: "chat",
-    value: "https://tatugaschool.com/support/chat",
+    value: "open-chat",
   },
-];
+] as const;
 function Index() {
+  const [triggerChat, setTriggerChat] = useState(false);
   return (
     <Layout>
       <Head>
@@ -67,6 +69,7 @@ function Index() {
 
         <meta property="twitter:image" content="/icon.svg" />
       </Head>
+      {triggerChat && <TawkToChat />}
       <header className="w-full md:flex-row px-5 py-10 md:items-center font-Anuphan flex justify-center flex-col gap-5">
         <section className="flex flex-col md:w-96 gap-3">
           <h1 className="text-4xl font-bold">Let&apos;s talk to us</h1>
@@ -112,7 +115,7 @@ function Index() {
                     } else if (contact.type === "phone") {
                       window.location.href = `tel:${contact.value}`;
                     } else if (contact.type === "chat") {
-                      window.open(contact.value, "_blank");
+                      setTriggerChat(true);
                     }
                   }}
                 >
