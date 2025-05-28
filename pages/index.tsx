@@ -104,15 +104,15 @@ export default function Home() {
             your students and your school.
           </p>
           <section className="flex col-span-1 flex-col items-center justify-center gap-1">
-            <h1 className="text-4xl font-bold">100+</h1>
+            <h1 className="text-4xl font-bold">1,356+</h1>
             <span>Number of School</span>
           </section>
           <section className="flex col-span-1 flex-col items-center justify-center gap-1">
-            <h1 className="text-4xl font-bold">200+</h1>
+            <h1 className="text-4xl font-bold">2,670+</h1>
             <span>Number of User</span>
           </section>
           <section className="flex col-span-1 flex-col items-center justify-center gap-1">
-            <h1 className="text-4xl font-bold">400+</h1>
+            <h1 className="text-4xl font-bold">34,155+</h1>
             <span>Number of Student</span>
           </section>
         </nav>

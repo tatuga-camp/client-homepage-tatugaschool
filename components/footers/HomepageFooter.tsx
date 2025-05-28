@@ -31,14 +31,8 @@ function HomepageFooter() {
         <Link href="/support/contact-us" className="text-gray-400 mt-2 ">
           Contact us
         </Link>
-        <Link href="/support/help-center" className="text-gray-400 ">
-          Help center
-        </Link>
         <Link href="/support/privacy-policy" className="text-gray-400 ">
-          Privacy policy
-        </Link>
-        <Link href="/support/terms-service" className="text-gray-400 ">
-          Terms of service
+          Privacy policy & Terms of service
         </Link>
       </section>
       <section className="flex flex-col items-start justify-start gap-2 p-10">
@@ -70,11 +64,12 @@ function HomepageFooter() {
         >
           Register
         </Link>
-        <Link href="/about-us" className="text-gray-400 ">
+        <Link
+          target="_blank"
+          href="https://tatugacamp.com/about-us"
+          className="text-gray-400 "
+        >
           about us
-        </Link>
-        <Link href="/subscription" className="text-gray-400 ">
-          subscription
         </Link>
       </section>
     </footer>
