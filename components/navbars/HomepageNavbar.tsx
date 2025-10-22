@@ -6,10 +6,10 @@ const menuNavbars = [
     title: "contact us",
     link: `/support/contact-us`,
   },
-  // {
-  //   title: "subscription",
-  //   link: "/subscription",
-  // },
+  {
+    title: "document",
+    link: "https://document-tatugaschool.my.canva.site",
+  },
 ];
 function HomepageNavbar() {
   return (

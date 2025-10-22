@@ -71,6 +71,13 @@ function HomepageFooter() {
         >
           about us
         </Link>
+        <Link
+          target="_blank"
+          href="https://document-tatugaschool.my.canva.site"
+          className="text-gray-400 "
+        >
+          document
+        </Link>
       </section>
     </footer>
   );
