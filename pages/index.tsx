@@ -69,7 +69,7 @@ export default function Home() {
           <a
             target="_blank"
             href={`${process.env.NEXT_PUBLIC_STUDENT_CLIENT_URL}`}
-            className="w-max px-2 h-10 text-white 0 hover:scale-110 transition duration-100 bg-primary-color flex items-center justify-center rounded-md"
+            className="w-max px-2 h-10 text-white 0 hover:scale-110 transition duration-100 bg-primary-color flex items-center justify-center rounded-2xl"
           >
             Students Go
           </a>
@@ -142,7 +142,7 @@ export default function Home() {
             <Link
               href="/school"
               className="w-36 h-10 hover:bg-secondary-color drop-shadow-md transition active:scale-105
-               bg-primary-color text-white flex items-center justify-center rounded-md"
+               bg-primary-color text-white flex items-center justify-center rounded-2xl"
             >
               Learn More
             </Link>
@@ -190,7 +190,7 @@ export default function Home() {
             {features.map((feature, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <div className=" p-5 group hover:scale-105 max-w-72 transition hover:drop-shadow-md bg-white rounded-md">
+                  <div className=" p-5 group hover:scale-105 max-w-72 transition hover:drop-shadow-md bg-white rounded-2xl">
                     <div className="w-full h-40 relative">
                       <Image
                         src={feature.image}

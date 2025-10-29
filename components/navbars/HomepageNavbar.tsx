@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useGetUser } from "../../react-query/user";
 const menuNavbars = [
   {
     title: "contact us",
@@ -12,6 +13,7 @@ const menuNavbars = [
   },
 ];
 function HomepageNavbar() {
+  const user = useGetUser();
   return (
     <nav className="w-full bg-white z-50 gap-2  sticky top-0 p-1 md:p-3 h-20 font-Anuphan flex items-center justify-between">
       <Link
@@ -46,17 +48,33 @@ function HomepageNavbar() {
 
           <div className="flex items-center justify-center gap-5 font-semibold">
             <a
-              target="_blank"
               href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-up`}
-              className="w-28 h-10 hover:scale-110 transition duration-100 ring-primary-color ring-1 text-primary-color flex items-center justify-center rounded-md"
+              className="w-28 h-10 hover:scale-110 transition duration-100 ring-primary-color ring-1 text-primary-color flex items-center justify-center rounded-2xl"
             >
               No Account?
             </a>
             <a
-              target="_blank"
-              href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}`}
-              className="w-max px-2 h-10 text-white 0 hover:scale-110 transition duration-100 bg-primary-color flex items-center justify-center rounded-md"
+              href={
+                user.data && user.data.favoritSchool
+                  ? `${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/school/${user.data.favoritSchool}`
+                  : `${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}`
+              }
+              className="w-max px-2 h-10 gap-2
+               text-white 0 hover:scale-110 transition duration-100 bg-primary-color flex items-center justify-center rounded-2xl"
             >
+              {user.data && (
+                <div className="w-8 h-8 relative rounded-full overflow-hidden bg-white">
+                  <Image
+                    src={user.data.photo}
+                    placeholder="blur"
+                    blurDataURL={user.data.blurHash}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    alt="profile picture"
+                  />
+                </div>
+              )}
               Teachers Go
             </a>
           </div>

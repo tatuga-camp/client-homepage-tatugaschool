@@ -93,7 +93,7 @@ function Index() {
             return (
               <section
                 key={index}
-                className="w-full flex lg:max-w-96 flex-col gap-2 p-5 rounded-md bg-[#F5F3FF] "
+                className="w-full flex lg:max-w-96 flex-col gap-2 p-5 rounded-2xl bg-[#F5F3FF] "
               >
                 <div className="w-full flex  justify-end h-20 ">
                   <div className="h-14 w-14 flex items-center justify-center bg-white rounded-full">
@@ -106,7 +106,7 @@ function Index() {
                 </p>
                 <button
                   className="w-full h-12 hover:bg-primary-color transition active:scale-105
-                 bg-secondary-color text-white rounded-md flex items-center justify-center"
+                 bg-secondary-color text-white rounded-2xl flex items-center justify-center"
                   onClick={() => {
                     if (contact.type === "email") {
                       window.location.href = `mailto:${contact.value}`;
