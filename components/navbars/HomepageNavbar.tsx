@@ -15,20 +15,20 @@ const menuNavbars = [
 function HomepageNavbar() {
   const user = useGetUser();
   return (
-    <nav className="w-full bg-white z-50 gap-2  sticky top-0 p-1 md:p-3 h-20 font-Anuphan flex items-center justify-between">
+    <nav className="w-full border-b-2 border-black bg-white z-50 gap-2  sticky top-0 p-1 md:p-3 h-20 font-Anuphan flex items-center justify-between">
       <Link
-        href="/"
-        className="flex items-center justify-center gap-1 md:gap-5"
+        href={"/"}
+        className="flex items-center justify-center gap-1 md:gap-3"
       >
-        <div className="w-10 h-10 relative hover:scale-105 active:scale-110 transition duration-150">
+        <div className="relative h-10 w-10 overflow-hidden rounded-2xl ring-1 ring-white transition duration-150 hover:scale-105 active:scale-110">
           <Image
-            src="/icon.svg"
+            src="/favicon.ico"
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             alt="logo tatuga school"
           />
         </div>
-        <div className="font-semibold hidden md:block text-xs md:text-base text-primary-color">
+        <div className="hidden text-xs font-bold uppercase text-icon-color md:block md:text-base">
           Tatuga School
         </div>
       </Link>

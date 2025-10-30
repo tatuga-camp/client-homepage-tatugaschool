@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/grid";
 import Head from "next/head";
+import { useGetUser } from "../react-query/user";
 const features = [
   {
     title: "Unlimited Storage & No Expired File",
@@ -33,7 +34,23 @@ const features = [
   },
 ];
 
+const sponsors = [
+  {
+    title: "TedFund",
+    description:
+      "Proof of Concept (POC) ภายใต้โครงการยุววิสาหกิจเริ่มต้น (TED Youth Startup)",
+    image:
+      "https://tedfund.mhesi.go.th/images/asset/logo/TED_Youth_Startup_LOGO.png",
+  },
+  {
+    title: "NRRU UBI",
+    description: "ศูนย์บ่มเพาะวิสาหกิจมหาวิทยาลัยราชภัฏนครราชสีมา",
+    image: "/images/sponsors/nrru-ubi.png",
+  },
+] as const;
+
 export default function Home() {
+  const user = useGetUser();
   return (
     <Layout>
       <Head>
@@ -98,7 +115,10 @@ export default function Home() {
         </section>
       </header>
       <main className="my-20 flex flex-col gap-10 font-Anuphan">
-        <nav className="w-full h-full py-2 md:py-1 md:h-28 md:p-3 p-0  bg-[#F5F3FF] grid grid-cols-1 gap-5 md:grid-cols-4  xl:grid-cols-5">
+        <nav
+          className="w-full h-full py-2 md:py-1 md:h-28 md:p-3 p-0 bg-orange-500 text-white
+         grid grid-cols-1 gap-5 md:grid-cols-4  xl:grid-cols-5"
+        >
           <p className="xl:col-span-2 text-base md:text-xs lg:text-base font-semibold text-center flex items-center px-10 md:px-0 ">
             With these amount of features, Tatuga School is the best choice for
             your students and your school.
@@ -140,7 +160,11 @@ export default function Home() {
               join us and get the best experience in managing your school
             </p>
             <Link
-              href="/school"
+              href={
+                user.data && user.data.favoritSchool
+                  ? `${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/school/${user.data.favoritSchool}`
+                  : `${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}`
+              }
               className="w-36 h-10 hover:bg-secondary-color drop-shadow-md transition active:scale-105
                bg-primary-color text-white flex items-center justify-center rounded-2xl"
             >
@@ -150,11 +174,11 @@ export default function Home() {
         </section>
         <section className="w-full p-5 md:px-10 grid gap-5 grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
           <div className="flex flex-col gap-1 justify-center items-start">
-            <h1 className="text-sm text-secondary-color font-bold">Feature</h1>
-            <h1 className="text-3xl font-bold">
+            <h1 className="text-sm text-orange-500 font-bold">Feature</h1>
+            <h1 className="text-3xl text-blue-600 font-bold">
               What you can do in Tatuga School
             </h1>
-            <p className="text-gray-500 font-medium">
+            <p className="text-gray-500 text-sm">
               assign task, create class, score student, group chat, and many
               more
             </p>
@@ -185,12 +209,12 @@ export default function Home() {
             centeredSlides={true}
             grabCursor={true}
             modules={[Pagination, Autoplay]}
-            className="bg-transparent col-span-2 xl:col-span-3 h-96 w-full "
+            className="bg-transparent col-span-2 xl:col-span-3 h-80 w-full "
           >
             {features.map((feature, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <div className=" p-5 group hover:scale-105 max-w-72 transition hover:drop-shadow-md bg-white rounded-2xl">
+                  <div className=" p-5 hover:bg-orange-500 hover:text-white group border-2 border-black h-full max-w-72 transition hover:drop-shadow-md bg-white rounded-2xl">
                     <div className="w-full h-40 relative">
                       <Image
                         src={feature.image}
@@ -199,10 +223,75 @@ export default function Home() {
                         className="object-contain"
                       />
                     </div>
-                    <h1 className="text-xl group-hover:text-secondary-color text-black transition font-bold mt-2">
+                    <h1 className="text-xl text-orange-500 group-hover:text-white  transition font-bold mt-2">
                       {feature.title}
                     </h1>
-                    <p className="text-gray-500">{feature.description}</p>
+                    <p className="text-gray-500 group-hover:text-white  ">
+                      {feature.description}
+                    </p>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </section>
+        <section className="w-full p-5 md:px-10 grid gap-5 grid-cols-1 md:grid-cols-3 xl:grid-cols-4">
+          <div className="flex flex-col gap-1 justify-center items-start">
+            <h1 className="text-sm text-orange-500 font-bold">Sponsors</h1>
+            <h1 className="text-3xl text-blue-600 font-bold">
+              Our Beloved Sponsors
+            </h1>
+            <p className="text-gray-500 text-sm">
+              Tatuga School is proudly supported by our beloved sponsors, who
+              more
+            </p>
+          </div>
+          <Swiper
+            slidesPerView={3}
+            loop={true}
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+            }}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            spaceBetween={30}
+            pagination={{
+              clickable: true,
+            }}
+            centeredSlides={true}
+            grabCursor={true}
+            modules={[Pagination, Autoplay]}
+            className="bg-transparent col-span-2 xl:col-span-3 h-80 w-full "
+          >
+            {sponsors.map((feature, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <div className=" p-5 hover:bg-orange-500 hover:text-white group border-2 border-black h-full max-w-72 transition hover:drop-shadow-md bg-white rounded-2xl">
+                    <div className="w-full h-40 relative">
+                      <Image
+                        src={feature.image}
+                        fill
+                        alt="feature"
+                        className="object-contain"
+                      />
+                    </div>
+                    <h1 className="text-xl text-orange-500 group-hover:text-white  transition font-bold mt-2">
+                      {feature.title}
+                    </h1>
+                    <p className="text-gray-500 group-hover:text-white  ">
+                      {feature.description}
+                    </p>
                   </div>
                 </SwiperSlide>
               );
