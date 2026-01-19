@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useGetUser } from "../../react-query/user";
+import LanguageSelect from "../common/LanguageSelect";
 const menuNavbars = [
   {
     title: "contact us",
@@ -10,6 +11,10 @@ const menuNavbars = [
   {
     title: "document",
     link: "https://document-tatugaschool.my.canva.site",
+  },
+  {
+    title: "pricing",
+    link: "/price",
   },
 ];
 function HomepageNavbar() {
@@ -45,7 +50,7 @@ function HomepageNavbar() {
               </Link>
             ))}
           </div>
-
+          <LanguageSelect />
           <div className="flex items-center justify-center gap-5 font-semibold">
             <a
               href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-up`}
