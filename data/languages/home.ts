@@ -26,7 +26,7 @@ export const HomeDataLanguage = {
       case "en":
         return "Beyond School & Classroom";
       case "th":
-        return "เหนือกว่าโรงเรียนและห้องเรียน";
+        return "จัดการการสอนของคุณให้สนุกและมีประสิทธิภาพ";
       default:
         return "Beyond School & Classroom";
     }
