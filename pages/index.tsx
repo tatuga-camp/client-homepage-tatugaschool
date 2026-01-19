@@ -61,25 +61,34 @@ export default function Home() {
   return (
     <Layout>
       <Head>
-        <title>Tatuga School</title>
+        <title>{HomeDataLanguage.tatuga_school(currentLanguage)}</title>
         <meta
           name="description"
-          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
+          content={HomeDataLanguage.description(currentLanguage)}
         />
         <link rel="icon" href="/favicon.ico" />
-        <meta property="og:title" content="Tatuga School" />
+        <meta
+          property="og:title"
+          content={HomeDataLanguage.tatuga_school(currentLanguage)}
+        />
         <meta
           property="og:description"
-          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
+          content={HomeDataLanguage.description(currentLanguage)}
         />
-        <meta property="og:site_name" content="Tatuga School" />
+        <meta
+          property="og:site_name"
+          content={HomeDataLanguage.tatuga_school(currentLanguage)}
+        />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="/icon.svg" />
 
-        <meta property="twitter:title" content="Tatuga School" />
+        <meta
+          property="twitter:title"
+          content={HomeDataLanguage.tatuga_school(currentLanguage)}
+        />
         <meta
           property="twitter:description"
-          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
+          content={HomeDataLanguage.description(currentLanguage)}
         />
 
         <meta property="twitter:image" content="/icon.svg" />
@@ -100,7 +109,9 @@ export default function Home() {
           <span className="text-sm mb-5 text-gray-500">
             {HomeDataLanguage.student_go_desc(currentLanguage)}
           </span>
-          <h3 className="font-bold text-primary-color">Tatuga School</h3>
+          <h3 className="font-bold text-primary-color">
+            {HomeDataLanguage.tatuga_school(currentLanguage)}
+          </h3>
           <h1 className="font-bold text-4xl  xl:text-6xl text-black">
             {HomeDataLanguage.title(currentLanguage)}
           </h1>
@@ -155,7 +166,7 @@ export default function Home() {
           </div>
           <div className="w-80 md:w-96 flex flex-col items-start justify-center gap-1">
             <h3 className="text-sm font-bold text-secondary-color">
-              Tatuga School
+              {HomeDataLanguage.tatuga_school(currentLanguage)}
             </h3>
             <h1 className="text-4xl text-black font-bold">
               {HomeDataLanguage.manage_your(currentLanguage)}

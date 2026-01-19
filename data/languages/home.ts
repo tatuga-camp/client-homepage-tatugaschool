@@ -281,4 +281,14 @@ export const HomeDataLanguage = {
         return "University Business Incubator, Nakhon Ratchasima Rajabhat University";
     }
   },
+  tatuga_school: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Tatuga School";
+      case "th":
+        return "Tatuga School"; // Or "โรงเรียนทาทูก้า" if preferred, but usually brand names stay. SubscriptionPlan used "โรงเรียนทาทูก้า" though. Let's use that for consistency if I am sure.
+      default:
+        return "Tatuga School";
+    }
+  },
 } as const;
