@@ -150,15 +150,15 @@ export default function Home() {
             {HomeDataLanguage.nav_text(language.data ?? "en")}
           </p>
           <section className="flex col-span-1 flex-col items-center justify-center gap-1">
-            <h1 className="text-4xl font-bold">2,136+</h1>
+            <h1 className="text-4xl font-bold">2,568+</h1>
             <span>{HomeDataLanguage.number_school(language.data ?? "en")}</span>
           </section>
           <section className="flex col-span-1 flex-col items-center justify-center gap-1">
-            <h1 className="text-4xl font-bold">3,793+</h1>
+            <h1 className="text-4xl font-bold">4,161+</h1>
             <span>{HomeDataLanguage.number_user(language.data ?? "en")}</span>
           </section>
           <section className="flex col-span-1 flex-col items-center justify-center gap-1">
-            <h1 className="text-4xl font-bold">57,268+</h1>
+            <h1 className="text-4xl font-bold">74,594+</h1>
             <span>
               {HomeDataLanguage.number_student(language.data ?? "en")}
             </span>
