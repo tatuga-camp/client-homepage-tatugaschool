@@ -64,13 +64,13 @@ function HomepageNavbar() {
                 : `${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}`
             }
             className="w-max px-2 h-10 gap-2
-               text-white 0 hover:scale-110 transition duration-100 bg-primary-color flex items-center justify-center rounded-2xl"
+               text-white transition duration-100 bg-primary-color flex items-center justify-center rounded-2xl"
           >
             {user.data && (
               <div className="w-8 h-8 relative rounded-full overflow-hidden bg-white">
                 <Image
                   src={user.data.photo}
-                  placeholder="blur"
+                  placeholder={user.data.blurHash ? "blur" : "empty"}
                   blurDataURL={user.data.blurHash}
                   fill
                   className="object-cover"

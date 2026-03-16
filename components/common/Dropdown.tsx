@@ -41,6 +41,7 @@ function Dropdown<T>({
     <>
       <DropdownPrimereact
         disabled={disabled}
+        className="flex h-10 items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white px-2 transition-colors hover:bg-gray-50"
         loading={loading}
         value={value}
         onChange={onChange}
