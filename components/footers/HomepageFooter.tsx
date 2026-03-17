@@ -78,6 +78,9 @@ function HomepageFooter() {
         >
           document
         </Link>
+        <Link href="/price" className="text-gray-400 ">
+          Pricing and Plans
+        </Link>
       </section>
     </footer>
   );

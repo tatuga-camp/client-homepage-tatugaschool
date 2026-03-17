@@ -19,6 +19,15 @@ export default function Home() {
 
   const features = [
     {
+      title: HomeDataLanguage.features_unlimited_teaching_materials(
+        language.data ?? "en",
+      ),
+      description: HomeDataLanguage.features_unlimited_teaching_materials_desc(
+        language.data ?? "en",
+      ),
+      image: "/images/features/5.png",
+    },
+    {
       title: HomeDataLanguage.features_unlimited_storage_title(
         language.data ?? "en",
       ),
@@ -207,7 +216,7 @@ export default function Home() {
             <h1 className="text-sm text-orange-500 font-bold">
               {HomeDataLanguage.feature(language.data ?? "en")}
             </h1>
-            <h1 className="text-3xl text-blue-600 font-bold">
+            <h1 className="text-3xl text-primary-color font-bold">
               {HomeDataLanguage.what_you_can_do(language.data ?? "en")}
             </h1>
             <p className="text-gray-500 text-sm">
@@ -271,7 +280,7 @@ export default function Home() {
             <h1 className="text-sm text-orange-500 font-bold">
               {HomeDataLanguage.sponsors(language.data ?? "en")}
             </h1>
-            <h1 className="text-3xl text-blue-600 font-bold">
+            <h1 className="text-3xl text-primary-color font-bold">
               {HomeDataLanguage.beloved_sponsors(language.data ?? "en")}
             </h1>
             <p className="text-gray-500 text-sm">

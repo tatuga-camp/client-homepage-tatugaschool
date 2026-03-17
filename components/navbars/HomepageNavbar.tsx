@@ -38,17 +38,6 @@ function HomepageNavbar() {
         </div>
       </Link>
       <section className="grow flex gap-5 overflow-auto h-max py-2 lg:justify-end ">
-        <div className="flex items-center gap-5">
-          {menuNavbars.map((menu, index) => (
-            <Link
-              key={index}
-              href={menu.link}
-              className="text-black w-max lg:w-32 hover:text-primary-color transition duration-100 hover:font-semibold"
-            >
-              {menu.title}
-            </Link>
-          ))}
-        </div>
         <LanguageSelect />
         <div className="flex items-center justify-center gap-5 font-semibold">
           <a

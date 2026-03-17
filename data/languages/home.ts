@@ -161,6 +161,26 @@ export const HomeDataLanguage = {
         return "Unlimited Storage & No Expired File";
     }
   },
+  features_unlimited_teaching_materials: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Over 400 Teaching Materials For Free!";
+      case "th":
+        return "สื่อการสอนมากกว่า 400 รายการฟรี!";
+      default:
+        return "Over 400 Teaching Materials For Free!";
+    }
+  },
+  features_unlimited_teaching_materials_desc: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "over 400 teaching materials for free, and more added every month";
+      case "th":
+        return "สื่อการสอนมากกว่า 400 รายการฟรี และมีการเพิ่มขึ้นทุกเดือน";
+      default:
+        return "over 400 teaching materials for free, and more added every month";
+    }
+  },
   features_unlimited_storage_desc: (language: Language) => {
     switch (language) {
       case "en":
