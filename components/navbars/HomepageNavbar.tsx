@@ -38,7 +38,9 @@ function HomepageNavbar() {
         </div>
       </Link>
       <section className="grow flex gap-5 overflow-auto h-max py-2 lg:justify-end ">
-        <LanguageSelect />
+        <div className="w-40">
+          <LanguageSelect />
+        </div>
         <div className="flex items-center justify-center gap-5 font-semibold">
           <a
             href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-up`}

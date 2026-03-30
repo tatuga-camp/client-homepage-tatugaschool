@@ -181,6 +181,26 @@ export const HomeDataLanguage = {
         return "over 400 teaching materials for free, and more added every month";
     }
   },
+    features_line_chat_bot: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Connect your subject with LINE Chat Bot";
+      case "th":
+        return "เชื่อมต่อรายวิชาของคุณกับ LINE Chat Bot";
+      default:
+        return "Connect your subject with LINE Chat Bot";
+    }
+  },
+  features_line_chat_bot_desc: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Get notified about student assignment submission, score update, and more through LINE Chat Bot";
+      case "th":
+        return "รับการแจ้งเตือนเกี่ยวกับการส่งงานของนักเรียน การอัปเดตคะแนน และอื่นๆ ผ่าน LINE Chat Bot";
+      default:
+        return "Get notified about student assignment submission, score update, and more through LINE Chat Bot";
+    }
+  },
   features_unlimited_storage_desc: (language: Language) => {
     switch (language) {
       case "en":

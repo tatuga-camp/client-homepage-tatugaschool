@@ -19,6 +19,13 @@ export default function Home() {
 
   const features = [
     {
+      title: HomeDataLanguage.features_line_chat_bot(language.data ?? "en"),
+      description: HomeDataLanguage.features_line_chat_bot_desc(
+        language.data ?? "en",
+      ),
+      image: "/images/features/6.png",
+    },
+    {
       title: HomeDataLanguage.features_unlimited_teaching_materials(
         language.data ?? "en",
       ),
@@ -27,15 +34,7 @@ export default function Home() {
       ),
       image: "/images/features/5.png",
     },
-    {
-      title: HomeDataLanguage.features_unlimited_storage_title(
-        language.data ?? "en",
-      ),
-      description: HomeDataLanguage.features_unlimited_storage_desc(
-        language.data ?? "en",
-      ),
-      image: "/images/features/1.png",
-    },
+
     {
       title: HomeDataLanguage.features_predictive_analysis_title(
         language.data ?? "en",
@@ -51,6 +50,15 @@ export default function Home() {
         language.data ?? "en",
       ),
       image: "/images/features/3.png",
+    },
+    {
+      title: HomeDataLanguage.features_unlimited_storage_title(
+        language.data ?? "en",
+      ),
+      description: HomeDataLanguage.features_unlimited_storage_desc(
+        language.data ?? "en",
+      ),
+      image: "/images/features/1.png",
     },
     {
       title: HomeDataLanguage.features_gamification_title(
