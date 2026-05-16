@@ -331,4 +331,124 @@ export const HomeDataLanguage = {
         return "Tatuga School";
     }
   },
+  seo_title: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Tatuga School — Classroom Management Platform";
+      case "th":
+        return "เว็บไซต์จัดการชั้นเรียน Tatuga School — เช็คชื่อ ส่งงาน ห้องเรียนออนไลน์";
+      default:
+        return "Tatuga School";
+    }
+  },
+  seo_description: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Classroom management for teachers: online attendance, assignment submission, and online classroom — Tatuga School (formerly Tatuga Class).";
+      case "th":
+        return "แพลตฟอร์มจัดการชั้นเรียนสำหรับครูไทย เช็คชื่อออนไลน์ ส่งงานออนไลน์ บริหารห้องเรียนออนไลน์ ครบในที่เดียว — Tatuga School (อดีต Tatuga Class)";
+      default:
+        return "Classroom management platform — Tatuga School";
+    }
+  },
+  migration_banner: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Former Tatuga Class user? We moved to Tatuga School — sign up to continue.";
+      case "th":
+        return "ผู้ใช้งาน Tatuga Class เดิม — เราย้ายมาที่ Tatuga School แล้ว ลงทะเบียนใช้งานต่อได้ที่นี่";
+      default:
+        return "Former Tatuga Class user? We moved to Tatuga School.";
+    }
+  },
+  hero_h1_seo: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Classroom management website for modern teachers";
+      case "th":
+        return "เว็บไซต์จัดการชั้นเรียนสำหรับครูยุคใหม่";
+      default:
+        return "Classroom management website";
+    }
+  },
+  keyword_attendance_h2: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Online attendance — student attendance program on mobile";
+      case "th":
+        return "เช็คชื่อออนไลน์ — โปรแกรมเช็คชื่อนักเรียนผ่านมือถือ";
+      default:
+        return "Online attendance";
+    }
+  },
+  keyword_attendance_body: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Take attendance in seconds — no paper, no logins for students.";
+      case "th":
+        return "เช็คชื่อนักเรียนได้ในไม่กี่วินาที ไม่ต้องใช้กระดาษ นักเรียนไม่ต้องล็อคอิน เช็คชื่อออนไลน์ผ่านมือถือได้ทันที";
+      default:
+        return "Take attendance in seconds.";
+    }
+  },
+  keyword_assignment_h2: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Online assignment submission — with LINE notifications";
+      case "th":
+        return "ส่งงานออนไลน์ — รับงานนักเรียนพร้อมแจ้งเตือนทาง LINE";
+      default:
+        return "Online assignment submission";
+    }
+  },
+  keyword_assignment_body: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Students submit assignments online; teachers receive LINE chat-bot alerts on every submission.";
+      case "th":
+        return "นักเรียนส่งงานออนไลน์ผ่านมือถือ ครูได้รับแจ้งเตือนการส่งงานทันทีผ่าน LINE Chat Bot จัดการงานนักเรียนได้ในที่เดียว";
+      default:
+        return "Online assignment submission with LINE notifications.";
+    }
+  },
+  keyword_classroom_h2: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Online classroom — manage your classroom anywhere";
+      case "th":
+        return "ห้องเรียนออนไลน์ — คลาสรูมที่ครูจัดการได้ทุกที่";
+      default:
+        return "Online classroom";
+    }
+  },
+  keyword_classroom_body: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Run your online classroom from any device. Classroom (classroom) management for Thai teachers.";
+      case "th":
+        return "ห้องเรียนออนไลน์ที่ครูจัดการได้จากทุกอุปกรณ์ คลาสรูมยุคใหม่สำหรับครูไทย บริหารห้องเรียนได้สะดวก รวดเร็ว";
+      default:
+        return "Run your online classroom from anywhere.";
+    }
+  },
+  keyword_activities_h2: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Introduction activities and classroom activities";
+      case "th":
+        return "กิจกรรมแนะนำตัวและกิจกรรมในห้องเรียน";
+      default:
+        return "Classroom activities";
+    }
+  },
+  keyword_activities_body: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Browse hundreds of introduction activities and classroom games on our sister site, tatugacamp.com.";
+      case "th":
+        return "ค้นหากิจกรรมแนะนำตัวและกิจกรรมในห้องเรียนจำนวนมากบนเว็บไซต์พี่น้อง tatugacamp.com — แหล่งรวมกิจกรรมและการ์ดเกมเพื่อการเรียนรู้";
+      default:
+        return "Browse activities on tatugacamp.com.";
+    }
+  },
 } as const;

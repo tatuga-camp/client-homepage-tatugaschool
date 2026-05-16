@@ -1,35 +1,17 @@
 // pages/privacy-policy.js
 
-import Head from "next/head";
+import SEOHead from "../../components/seo/SEOHead";
+import { HomeDataLanguage } from "../../data/languages/home";
+import { useGetLanguage } from "../../react-query";
 
 const PrivacyPolicyPage = () => {
+  const language = useGetLanguage();
   return (
     <>
-      <Head>
-        <title>Tatuga School - Privacy policy & Terms of service</title>
-        <meta
-          name="description"
-          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
-        />
-        <link rel="icon" href="/favicon.ico" />
-        <meta property="og:title" content="Tatuga School" />
-        <meta
-          property="og:description"
-          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
-        />
-        <meta property="og:site_name" content="Tatuga School" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/icon.svg" />
-
-        <meta property="twitter:title" content="Tatuga School" />
-        <meta
-          property="twitter:description"
-          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
-        />
-
-        <meta property="twitter:image" content="/icon.svg" />
-        <meta name="twitter:card" content="summary" />
-      </Head>
+      <SEOHead
+        title="Privacy Policy — Tatuga School"
+        description={HomeDataLanguage.seo_description(language.data ?? "en")}
+      />
       <div className="bg-white min-h-screen py-8 sm:py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-800">
           <header className="mb-8 sm:mb-10">

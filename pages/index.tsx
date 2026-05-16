@@ -8,10 +8,11 @@ import { Pagination, Autoplay, Grid } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/grid";
-import Head from "next/head";
 import { useGetUser } from "../react-query/user";
 import { useGetLanguage } from "../react-query";
 import { HomeDataLanguage } from "../data/languages/home";
+import SEOHead from "../components/seo/SEOHead";
+import StructuredData from "../components/seo/StructuredData";
 
 export default function Home() {
   const user = useGetUser();
@@ -87,40 +88,19 @@ export default function Home() {
 
   return (
     <Layout>
-      <Head>
-        <title>{HomeDataLanguage.tatuga_school(language.data ?? "en")}</title>
-        <meta
-          name="description"
-          content={HomeDataLanguage.description(language.data ?? "en")}
-        />
-        <link rel="icon" href="/favicon.ico" />
-        <meta
-          property="og:title"
-          content={HomeDataLanguage.tatuga_school(language.data ?? "en")}
-        />
-        <meta
-          property="og:description"
-          content={HomeDataLanguage.description(language.data ?? "en")}
-        />
-        <meta
-          property="og:site_name"
-          content={HomeDataLanguage.tatuga_school(language.data ?? "en")}
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/icon.svg" />
-
-        <meta
-          property="twitter:title"
-          content={HomeDataLanguage.tatuga_school(language.data ?? "en")}
-        />
-        <meta
-          property="twitter:description"
-          content={HomeDataLanguage.description(language.data ?? "en")}
-        />
-
-        <meta property="twitter:image" content="/icon.svg" />
-        <meta name="twitter:card" content="summary" />
-      </Head>
+      <SEOHead
+        title={HomeDataLanguage.seo_title(language.data ?? "en")}
+        description={HomeDataLanguage.seo_description(language.data ?? "en")}
+      />
+      <StructuredData
+        descriptionTh={HomeDataLanguage.seo_description("th")}
+      />
+      <aside
+        className="w-full bg-orange-100 border-b-2 border-orange-400 px-4 py-3 text-center text-sm md:text-base font-Anuphan text-orange-900"
+        aria-label="migration notice"
+      >
+        <strong>{HomeDataLanguage.migration_banner(language.data ?? "en")}</strong>
+      </aside>
       <header
         className="w-full min-h-96 py-5 px-20 md:px-5 flex-col lg:flex-row
        flex items-center justify-center font-Anuphan gap-2 md:gap-10 lg:gap-40 p-2"
@@ -346,6 +326,51 @@ export default function Home() {
               );
             })}
           </Swiper>
+        </section>
+        <section className="w-full px-4 md:px-10 py-12 bg-white font-Anuphan max-w-5xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-bold text-primary-color mb-8 text-center">
+            {HomeDataLanguage.hero_h1_seo(language.data ?? "en")}
+          </h1>
+          <div className="grid gap-8 md:grid-cols-2">
+            <article>
+              <h2 className="text-xl font-bold text-orange-500 mb-2">
+                {HomeDataLanguage.keyword_attendance_h2(language.data ?? "en")}
+              </h2>
+              <p className="text-gray-700">
+                {HomeDataLanguage.keyword_attendance_body(language.data ?? "en")}
+              </p>
+            </article>
+            <article>
+              <h2 className="text-xl font-bold text-orange-500 mb-2">
+                {HomeDataLanguage.keyword_assignment_h2(language.data ?? "en")}
+              </h2>
+              <p className="text-gray-700">
+                {HomeDataLanguage.keyword_assignment_body(language.data ?? "en")}
+              </p>
+            </article>
+            <article>
+              <h2 className="text-xl font-bold text-orange-500 mb-2">
+                {HomeDataLanguage.keyword_classroom_h2(language.data ?? "en")}
+              </h2>
+              <p className="text-gray-700">
+                {HomeDataLanguage.keyword_classroom_body(language.data ?? "en")}
+              </p>
+            </article>
+            <article>
+              <h2 className="text-xl font-bold text-orange-500 mb-2">
+                {HomeDataLanguage.keyword_activities_h2(language.data ?? "en")}
+              </h2>
+              <p className="text-gray-700">
+                {HomeDataLanguage.keyword_activities_body(language.data ?? "en")}{" "}
+                <a
+                  href="https://tatugacamp.com/"
+                  className="text-primary-color underline"
+                >
+                  tatugacamp.com
+                </a>
+              </p>
+            </article>
+          </div>
         </section>
       </main>
     </Layout>

@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 
-Sitemap: https://www.tatugaschool.com/sitemap.xml
+Sitemap: https://tatugaschool.com/sitemap.xml

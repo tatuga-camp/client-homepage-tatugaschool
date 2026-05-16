@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Layout from "../../layouts/HomepageLayout";
-import Head from "next/head";
 import Image from "next/image";
 import {
   MdFacebook,
@@ -9,6 +8,9 @@ import {
   MdOutlineMail,
 } from "react-icons/md";
 import TawkToChat from "../../components/TawkToChat";
+import SEOHead from "../../components/seo/SEOHead";
+import { HomeDataLanguage } from "../../data/languages/home";
+import { useGetLanguage } from "../../react-query";
 const contactLists = [
   {
     title: "Email us",
@@ -45,30 +47,13 @@ const contactLists = [
 ] as const;
 function Index() {
   const [triggerChat, setTriggerChat] = useState(false);
+  const language = useGetLanguage();
   return (
     <Layout>
-      <Head>
-        <title>Contact Us</title>
-        <meta
-          name="description"
-          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
-        />
-        <meta property="og:title" content="Tatuga School" />
-        <meta
-          property="og:description"
-          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/icon.svg" />
-
-        <meta property="twitter:title" content="Tatuga School" />
-        <meta
-          property="twitter:description"
-          content="Tatuga School is a platform that provides a variety of learning methods and materials for students."
-        />
-
-        <meta property="twitter:image" content="/icon.svg" />
-      </Head>
+      <SEOHead
+        title="Contact Us — Tatuga School"
+        description={HomeDataLanguage.seo_description(language.data ?? "en")}
+      />
       {triggerChat && <TawkToChat />}
       <header className="w-full md:flex-row px-5 py-10 md:items-center font-Anuphan flex justify-center flex-col gap-5">
         <section className="flex flex-col md:w-96 gap-3">
