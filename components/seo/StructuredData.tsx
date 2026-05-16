@@ -27,11 +27,15 @@ export default function StructuredData({ descriptionTh }: Props) {
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApp) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(softwareApp).replace(/</g, "\\u003c"),
+        }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organization).replace(/</g, "\\u003c"),
+        }}
       />
     </Head>
   );
