@@ -1,50 +1,31 @@
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { GetServerSideProps } from "next";
 
-function generateSiteMap() {
+const SITE = "https://tatugaschool.com";
+const PATHS = ["", "/price", "/support/contact-us", "/support/privacy-policy"];
+
+function generateSiteMap(lastmod: string) {
+  const urls = PATHS.map(
+    (p) => `  <url>
+    <loc>${SITE}${p}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>${p === "" ? "1.0" : "0.7"}</priority>
+  </url>`,
+  ).join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://www.tatugaschool.com</loc>
-    <lastmod>2025-02-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-   <url>
-    <loc>https://tatugaschool.com</loc>
-    <lastmod>2025-02-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://app.tatugaschool.com/auth/sign-in</loc>
-    <lastmod>2025-02-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://student.tatugaschool.com/welcome</loc>
-    <lastmod>2025-02-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+${urls}
 </urlset>`;
 }
 
-function SiteMap() {
-  // getServerSideProps will do the heavy lifting
-}
+function SiteMap() {}
 
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const lastmod = new Date().toISOString().slice(0, 10);
   context.res.setHeader("Content-Type", "text/xml");
-  // we send the XML to the browser
-  const sitemap = generateSiteMap();
-  context.res.write(sitemap);
+  context.res.write(generateSiteMap(lastmod));
   context.res.end();
-  return {
-    props: {},
-  };
+  return { props: {} };
 };
 
 export default SiteMap;
