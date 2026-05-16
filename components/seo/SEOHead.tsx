@@ -19,6 +19,7 @@ export default function SEOHead({ title, description, image }: Props) {
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
+      <link rel="icon" href="/favicon.ico" />
       <link rel="canonical" href={canonical} />
       <link rel="alternate" hrefLang="th" href={`${canonical}?lang=th`} />
       <link rel="alternate" hrefLang="en" href={`${canonical}?lang=en`} />
