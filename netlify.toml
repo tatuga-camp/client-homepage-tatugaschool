@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://www.tatugaschool.com/*"
+  to = "https://tatugaschool.com/:splat"
+  status = 301
+  force = true
