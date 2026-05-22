@@ -29,8 +29,10 @@ const components: PortableTextComponents = {
     normal: ({ children }) => (
       <p className="mb-3 leading-relaxed text-gray-700">{children}</p>
     ),
+    // Rendered as <h2> on purpose: the page itself owns the single <h1>
+    // (the article title), so a body heading must never produce a second one.
     h1: ({ children }) => (
-      <h1 className="mb-3 mt-4 text-2xl font-bold text-gray-800">{children}</h1>
+      <h2 className="mb-3 mt-4 text-2xl font-bold text-gray-800">{children}</h2>
     ),
     h2: ({ children }) => (
       <h2 className="mb-2 mt-4 text-xl font-bold text-gray-800">{children}</h2>
