@@ -30,8 +30,27 @@ test("collapses runs of whitespace and newlines", () => {
 test("truncates to maxLength and appends an ellipsis", () => {
   const long = "a".repeat(200);
   const result = portableTextToPlain([block(long)] as never, 20);
-  assert.equal(result.length, 20);
+  assert.ok(result.length <= 20, "truncated result must not exceed maxLength");
   assert.ok(result.endsWith("…"));
+});
+
+test("truncation does not leave a space before the ellipsis", () => {
+  // With maxLength 10, the slice boundary lands on a space.
+  const result = portableTextToPlain([block("abcdefgh ij")] as never, 10);
+  assert.ok(!result.includes(" …"), "no space should precede the ellipsis");
+  assert.ok(result.endsWith("…"));
+  assert.ok(result.length <= 10);
+});
+
+test("joins multiple spans within one block without a separator", () => {
+  const multiSpanBlock = {
+    _type: "block",
+    children: [
+      { _type: "span", text: "Hel" },
+      { _type: "span", text: "lo" },
+    ],
+  };
+  assert.equal(portableTextToPlain([multiSpanBlock] as never), "Hello");
 });
 
 test("does not truncate text shorter than maxLength", () => {
