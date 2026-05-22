@@ -37,7 +37,10 @@ const announcementProjection = `{
   titleTh,
   bodyEn,
   bodyTh,
-  coverImage
+  // Only pass through a cover image once its asset is finalized. A still-
+  // uploading image has an _upload field but no asset, which would crash
+  // urlForImage at build time; collapse that to null so callers skip it.
+  "coverImage": select(defined(coverImage.asset) => coverImage, null)
 }`;
 
 export async function getAllAnnouncements(): Promise<Announcement[]> {
