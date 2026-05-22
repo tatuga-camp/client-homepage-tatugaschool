@@ -135,7 +135,7 @@ export default function NewsArticlePage({ announcement }: Props) {
           {title}
         </h1>
         <article>
-          <PortableTextBody value={body ?? []} />
+          <PortableTextBody value={body} />
         </article>
       </main>
     </HomepageLayout>
