@@ -47,6 +47,9 @@ function HomepageFooter() {
         >
           Tatuga Class
         </Link>
+        <Link href="/news" className="text-gray-400 ">
+          News
+        </Link>
       </section>
       <section className="flex flex-col items-start justify-start gap-2 p-10">
         <h1 className=" font-bold text-white">Resources</h1>

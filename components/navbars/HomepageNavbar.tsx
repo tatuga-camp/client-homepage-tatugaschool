@@ -42,6 +42,12 @@ function HomepageNavbar() {
           <LanguageSelect />
         </div>
         <div className="flex items-center justify-center gap-5 font-semibold">
+          <Link
+            href="/news"
+            className="hidden h-10 items-center justify-center px-2 text-primary-color transition duration-100 hover:scale-110 md:flex"
+          >
+            News
+          </Link>
           <a
             href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-up`}
             className="w-28 h-10 hover:scale-110 transition duration-100 ring-primary-color ring-1 text-primary-color flex items-center justify-center rounded-2xl"
