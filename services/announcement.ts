@@ -1,3 +1,15 @@
+/**
+ * Data access for announcements — the public-facing "news" content.
+ *
+ * "Announcement" is the domain name; the underlying Sanity document type is
+ * `news` (see sanity/schemaTypes/newsType.ts), hence `_type == "news"` below.
+ *
+ * Import this module via its deep path (`services/announcement`), NOT through
+ * the `services/index.ts` barrel: it pulls in `sanityClient`, and these
+ * functions are only meant to run at build time inside `getStaticProps` /
+ * `getStaticPaths`. Keeping it out of the barrel avoids bundling the Sanity
+ * client into client-side code.
+ */
 import type { PortableTextBlock } from "@portabletext/types";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { sanityClient } from "../sanity/lib/client";
