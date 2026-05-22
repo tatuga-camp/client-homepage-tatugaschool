@@ -63,6 +63,11 @@ export default function NewsArticlePage({ announcement }: Props) {
     headline: title,
     datePublished: announcement.publishedAt,
     dateModified: announcement.publishedAt,
+    author: {
+      "@type": "Organization",
+      name: "Tatuga School",
+      url: SITE,
+    },
     image: ogImage ? [ogImage] : undefined,
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -84,6 +89,14 @@ export default function NewsArticlePage({ announcement }: Props) {
         type="article"
       />
       <Head>
+        <meta
+          property="article:published_time"
+          content={announcement.publishedAt}
+        />
+        <meta
+          property="article:modified_time"
+          content={announcement.publishedAt}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -122,7 +135,7 @@ export default function NewsArticlePage({ announcement }: Props) {
           {title}
         </h1>
         <article>
-          <PortableTextBody value={body} />
+          <PortableTextBody value={body ?? []} />
         </article>
       </main>
     </HomepageLayout>

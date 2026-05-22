@@ -46,13 +46,13 @@ export async function getAllAnnouncements(): Promise<Announcement[]> {
 }
 
 export async function getAnnouncementSlugs(): Promise<{ slug: string }[]> {
-  const query = `*[_type == "news" && defined(slug.current)]{ "slug": slug.current }`;
+  const query = `*[_type == "news" && defined(publishedAt) && defined(slug.current)]{ "slug": slug.current }`;
   return sanityClient.fetch<{ slug: string }[]>(query);
 }
 
 export async function getAnnouncementBySlug(
   slug: string,
 ): Promise<Announcement | null> {
-  const query = `*[_type == "news" && slug.current == $slug][0] ${announcementProjection}`;
+  const query = `*[_type == "news" && defined(publishedAt) && slug.current == $slug][0] ${announcementProjection}`;
   return sanityClient.fetch<Announcement | null>(query, { slug });
 }
