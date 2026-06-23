@@ -181,12 +181,12 @@ export const HomeDataLanguage = {
         return "over 400 teaching materials for free, and more added every month";
     }
   },
-    features_line_chat_bot: (language: Language) => {
+  features_line_chat_bot: (language: Language) => {
     switch (language) {
       case "en":
         return "Connect your subject with LINE Chat Bot";
       case "th":
-        return "เชื่อมต่อรายวิชาของคุณกับ LINE Chat Bot";
+        return "ทวงงานนักเรียนผ่าน LINE Chat Bot";
       default:
         return "Connect your subject with LINE Chat Bot";
     }
@@ -196,7 +196,7 @@ export const HomeDataLanguage = {
       case "en":
         return "Get notified about student assignment submission, score update, and more through LINE Chat Bot";
       case "th":
-        return "รับการแจ้งเตือนเกี่ยวกับการส่งงานของนักเรียน การอัปเดตคะแนน และอื่นๆ ผ่าน LINE Chat Bot";
+        return "ทวงงานนักเรียนผ่าน LINE Chat Bot แจ้งเตือนนักเรียนเมื่อมีงานที่ต้องส่ง สอบถามคะแนน และอื่นๆ อีกมากมายผ่าน LINE Chat Bot";
       default:
         return "Get notified about student assignment submission, score update, and more through LINE Chat Bot";
     }
@@ -269,6 +269,26 @@ export const HomeDataLanguage = {
         return "กระตุ้นให้นักเรียนเรียนรู้โดยใช้เกม";
       default:
         return "encourage student to learn using gamification";
+    }
+  },
+  features_rubic_grading_title: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "AI Rubic Grading";
+      case "th":
+        return "การให้คะแนนแบบรูบริก";
+      default:
+        return "AI Rubic Grading";
+    }
+  },
+  features_rubic_grading_desc: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Grade student assignment using rubic grading system";
+      case "th":
+        return "ให้คะแนนงานนักเรียนโดยใช้ระบบการให้คะแนนแบบรูบริก ที่ครูสามารถกำหนดเกณฑ์การให้คะแนนได้อย่างละเอียด และชัดเจน โดยใช้ AI ช่วยในการประเมินผลการเรียนรู้ของนักเรียนอย่างมีประสิทธิภาพ";
+      default:
+        return "Grade student assignment using rubic grading system";
     }
   },
   sponsors: (language: Language) => {

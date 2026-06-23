@@ -20,6 +20,15 @@ export default function Home() {
 
   const features = [
     {
+      title: HomeDataLanguage.features_rubic_grading_title(
+        language.data ?? "en",
+      ),
+      description: HomeDataLanguage.features_rubic_grading_desc(
+        language.data ?? "en",
+      ),
+      image: "/images/features/rubic.avif",
+    },
+    {
       title: HomeDataLanguage.features_line_chat_bot(language.data ?? "en"),
       description: HomeDataLanguage.features_line_chat_bot_desc(
         language.data ?? "en",
@@ -76,8 +85,7 @@ export default function Home() {
     {
       title: "TedFund",
       description: HomeDataLanguage.tedfund_desc(language.data ?? "en"),
-      image:
-        "https://tedfund.mhesi.go.th/images/asset/logo/TED_Youth_Startup_LOGO.png",
+      image: "/images/sponsors/tedfund1.png",
     },
     {
       title: "NRRU UBI",
@@ -92,14 +100,14 @@ export default function Home() {
         title={HomeDataLanguage.seo_title(language.data ?? "en")}
         description={HomeDataLanguage.seo_description(language.data ?? "en")}
       />
-      <StructuredData
-        descriptionTh={HomeDataLanguage.seo_description("th")}
-      />
+      <StructuredData descriptionTh={HomeDataLanguage.seo_description("th")} />
       <aside
         className="w-full bg-orange-100 border-b-2 border-orange-400 px-4 py-3 text-center text-sm md:text-base font-Anuphan text-orange-900"
         aria-label="migration notice"
       >
-        <strong>{HomeDataLanguage.migration_banner(language.data ?? "en")}</strong>
+        <strong>
+          {HomeDataLanguage.migration_banner(language.data ?? "en")}
+        </strong>
       </aside>
       <header
         className="w-full min-h-96 py-5 px-20 md:px-5 flex-col lg:flex-row
@@ -337,7 +345,9 @@ export default function Home() {
                 {HomeDataLanguage.keyword_attendance_h2(language.data ?? "en")}
               </h2>
               <p className="text-gray-700">
-                {HomeDataLanguage.keyword_attendance_body(language.data ?? "en")}
+                {HomeDataLanguage.keyword_attendance_body(
+                  language.data ?? "en",
+                )}
               </p>
             </article>
             <article>
@@ -345,7 +355,9 @@ export default function Home() {
                 {HomeDataLanguage.keyword_assignment_h2(language.data ?? "en")}
               </h2>
               <p className="text-gray-700">
-                {HomeDataLanguage.keyword_assignment_body(language.data ?? "en")}
+                {HomeDataLanguage.keyword_assignment_body(
+                  language.data ?? "en",
+                )}
               </p>
             </article>
             <article>
@@ -361,7 +373,9 @@ export default function Home() {
                 {HomeDataLanguage.keyword_activities_h2(language.data ?? "en")}
               </h2>
               <p className="text-gray-700">
-                {HomeDataLanguage.keyword_activities_body(language.data ?? "en")}{" "}
+                {HomeDataLanguage.keyword_activities_body(
+                  language.data ?? "en",
+                )}{" "}
                 <a
                   href="https://tatugacamp.com/"
                   className="text-primary-color underline"
