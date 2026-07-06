@@ -40,12 +40,8 @@ function HomepageFooter() {
         <Link href="/" className="text-gray-400 mt-2 ">
           Tatuga School
         </Link>
-        <Link
-          target="_blank"
-          href="https://tatugacamp.com/classroom"
-          className="text-gray-400 "
-        >
-          Tatuga Class
+        <Link href="/news" className="text-gray-400 ">
+          News
         </Link>
       </section>
       <section className="flex flex-col items-start justify-start gap-2 p-10">

@@ -20,6 +20,15 @@ export default function Home() {
 
   const features = [
     {
+      title: HomeDataLanguage.features_rubic_grading_title(
+        language.data ?? "en",
+      ),
+      description: HomeDataLanguage.features_rubic_grading_desc(
+        language.data ?? "en",
+      ),
+      image: "/images/features/rubic.avif",
+    },
+    {
       title: HomeDataLanguage.features_line_chat_bot(language.data ?? "en"),
       description: HomeDataLanguage.features_line_chat_bot_desc(
         language.data ?? "en",
@@ -76,8 +85,7 @@ export default function Home() {
     {
       title: "TedFund",
       description: HomeDataLanguage.tedfund_desc(language.data ?? "en"),
-      image:
-        "https://tedfund.mhesi.go.th/images/asset/logo/TED_Youth_Startup_LOGO.png",
+      image: "/images/sponsors/tedfund1.png",
     },
     {
       title: "NRRU UBI",

@@ -5,11 +5,17 @@ type Props = {
   title: string;
   description: string;
   image?: string;
+  type?: "website" | "article";
 };
 
 const SITE = "https://tatugaschool.com";
 
-export default function SEOHead({ title, description, image }: Props) {
+export default function SEOHead({
+  title,
+  description,
+  image,
+  type = "website",
+}: Props) {
   const router = useRouter();
   const path = router.asPath.split("?")[0].split("#")[0];
   const canonical = `${SITE}${path === "/" ? "" : path}`;
@@ -26,7 +32,7 @@ export default function SEOHead({ title, description, image }: Props) {
       <link rel="alternate" hrefLang="x-default" href={canonical} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={type} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={ogImage} />
       <meta property="og:site_name" content="Tatuga School" />

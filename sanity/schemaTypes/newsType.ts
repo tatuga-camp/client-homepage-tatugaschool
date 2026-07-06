@@ -72,6 +72,14 @@ export const news = defineType({
       group: "settings",
       options: { hotspot: true },
     }),
+    defineField({
+      name: "slug",
+      title: "Slug (URL)",
+      type: "slug",
+      group: "settings",
+      options: { source: "titleEn", maxLength: 96 },
+      validation: (rule) => rule.required(),
+    }),
   ],
   preview: {
     select: { title: "titleEn", subtitle: "type", media: "coverImage" },
