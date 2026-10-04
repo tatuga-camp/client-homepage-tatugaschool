@@ -1,13 +1,28 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getLocalStorage, setLocalStorage } from "../utils";
+import { getLocalStorage, removeLocalStorage } from "../utils";
 import { Language } from "../interfaces";
+import {
+  resolveClientLanguage,
+  serializeLangCookie,
+} from "../lib/languagePreference";
 
-function detectInitialLanguage(): Language {
+/**
+ * The visitor's language in the browser, from the `lang` cookie the server
+ * also renders with (see lib/languagePreference.ts). A choice the old
+ * switcher left in localStorage is moved into the cookie here.
+ */
+export function detectInitialLanguage(): Language {
   if (typeof window === "undefined") return "en";
-  const stored = getLocalStorage("language") as Language | null;
-  if (stored === "en" || stored === "th") return stored;
-  const browser = (window.navigator?.language ?? "").toLowerCase();
-  return browser.startsWith("th") ? "th" : "en";
+  const { language, fromLegacy } = resolveClientLanguage({
+    cookie: document.cookie,
+    legacyStored: getLocalStorage("language"),
+    navigatorLanguage: window.navigator?.language ?? "",
+  });
+  if (fromLegacy) {
+    document.cookie = serializeLangCookie(language);
+    removeLocalStorage("language");
+  }
+  return language;
 }
 
 export function useGetLanguage() {
@@ -22,7 +37,9 @@ export function useUpdateLanguage() {
   return useMutation({
     mutationKey: ["language"],
     mutationFn: (request: Language) => {
-      setLocalStorage("language", request);
+      // The cookie is what the server reads on the next page load.
+      document.cookie = serializeLangCookie(request);
+      removeLocalStorage("language");
       queryClient.setQueryData(["language"], request);
       return Promise.resolve(request); // Ensure it returns a Promise
     },

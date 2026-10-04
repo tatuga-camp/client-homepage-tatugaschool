@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -p 8080",
     "lint": "next lint",
-    "test": "tsx --test \"./lib/seo/detectLanguage.test.ts\" \"./utils/portableTextToPlain.test.ts\" \"./utils/payingSchools.test.ts\""
+    "test": "tsx --test \"./lib/seo/detectLanguage.test.ts\" \"./utils/portableTextToPlain.test.ts\" \"./utils/payingSchools.test.ts\" \"./lib/languagePreference.test.ts\""
   },
   "dependencies": {
     "@portabletext/react": "^3.1.0",
