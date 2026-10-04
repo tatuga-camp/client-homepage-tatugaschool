@@ -7,3 +7,22 @@
 /* * {
   background: rgba(0, 100, 0, 0.05) !important;
 } */
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* One visible focus style for every interactive element on the site. */
+  :focus-visible {
+    outline: 2px solid #2c7cd1;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}

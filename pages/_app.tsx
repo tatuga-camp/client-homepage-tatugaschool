@@ -3,9 +3,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PagesProgressBar } from "next-nprogress-bar";
 import App, { AppContext, AppProps } from "next/app";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ErrorMessages } from "../interfaces";
 import { detectLanguage, type Lang } from "../lib/seo/detectLanguage";
+import { detectInitialLanguage } from "../react-query/language";
 
 type MyAppProps = AppProps & { ssrLang: Lang };
 
@@ -32,6 +33,18 @@ export default function MyApp({ Component, pageProps, ssrLang }: MyAppProps) {
     qc.setQueryData(["language"], ssrLang);
     return qc;
   });
+
+  // The page was rendered with the server's language: the `lang` cookie, or a
+  // default for statically built pages. Once in the browser, switch to the
+  // visitor's stored choice if it differs (and migrate an old localStorage
+  // choice into the cookie, so the next load renders it server-side).
+  useEffect(() => {
+    const language = detectInitialLanguage();
+    if (queryClient.getQueryData(["language"]) !== language) {
+      queryClient.setQueryData(["language"], language);
+    }
+  }, [queryClient]);
+
   return (
     <>
       <QueryClientProvider client={queryClient}>

@@ -1,83 +1,114 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useGetLanguage } from "../../react-query";
+import { LayoutDataLanguage } from "../../data/languages/layout";
+
+const GUIDE_URL = "https://document-tatugaschool.my.canva.site";
 
 function HomepageFooter() {
+  const language = useGetLanguage();
+  const lang = language.data ?? "en";
+  const mainUrl = process.env.NEXT_PUBLIC_MAIN_CLIENT_URL;
+
+  const columns = [
+    {
+      title: LayoutDataLanguage.footer_product(lang),
+      links: [
+        { title: LayoutDataLanguage.nav_pricing(lang), href: "/price" },
+        { title: LayoutDataLanguage.nav_news(lang), href: "/news" },
+        { title: LayoutDataLanguage.nav_guide(lang), href: GUIDE_URL, external: true },
+      ],
+    },
+    {
+      title: LayoutDataLanguage.footer_support(lang),
+      links: [
+        { title: LayoutDataLanguage.nav_contact(lang), href: "/support/contact-us" },
+        {
+          title: LayoutDataLanguage.footer_privacy(lang),
+          href: "/support/privacy-policy",
+        },
+        {
+          title: LayoutDataLanguage.footer_about(lang),
+          href: "https://tatugacamp.com/about-us",
+          external: true,
+        },
+      ],
+    },
+    {
+      title: LayoutDataLanguage.footer_account(lang),
+      links: [
+        { title: LayoutDataLanguage.nav_sign_in(lang), href: `${mainUrl}/auth/sign-in` },
+        { title: LayoutDataLanguage.nav_sign_up(lang), href: `${mainUrl}/auth/sign-up` },
+        {
+          title: LayoutDataLanguage.footer_students(lang),
+          href: `${process.env.NEXT_PUBLIC_STUDENT_CLIENT_URL}`,
+        },
+      ],
+    },
+  ];
+
   return (
-    <footer className="h-max py-20 bg-[#15171A] grid grid-cols-1 md:grid-cols-4 xl:grid-cols-6 gap-5 font-Anuphan">
-      <section className="col-span-2 flex flex-col items-start justify-start gap-5 p-10">
-        <div className="flex gap-2">
-          <div className="w-10 h-10 bg-white rounded-full relative">
-            <Image
-              src="/icon.svg"
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              alt="logo tatuga school"
-              className="object-contain"
-            />
+    <footer className="bg-icon-color font-Anuphan text-white">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]">
+        <section className="flex max-w-sm flex-col gap-4">
+          <div className="flex items-center gap-3">
+            <span className="relative h-10 w-10 rounded-full bg-white">
+              <Image
+                src="/icon.svg"
+                fill
+                sizes="40px"
+                alt=""
+                className="object-contain"
+              />
+            </span>
+            <span className="text-2xl font-bold">Tatuga School</span>
           </div>
-          <h1 className="text-3xl font-bold text-white">Tatuga School</h1>
-        </div>
-        <p className="text-gray-400 font-medium">
-          Tatuga School is a platform that provides a variety of learning
-          methods and materials for students.
+          <p className="leading-relaxed text-white/70">
+            {LayoutDataLanguage.footer_tagline(lang)}
+          </p>
+        </section>
+
+        {columns.map((column) => (
+          <section key={column.title} className="flex flex-col gap-3">
+            <h2 className="font-semibold">{column.title}</h2>
+            <ul className="flex flex-col gap-2.5">
+              {column.links.map((link) => (
+                <li key={link.href}>
+                  {link.href.startsWith("/") ? (
+                    <Link
+                      href={link.href}
+                      className="text-white/70 transition-colors hover:text-white"
+                    >
+                      {link.title}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      target={"external" in link && link.external ? "_blank" : undefined}
+                      rel={
+                        "external" in link && link.external
+                          ? "noopener noreferrer"
+                          : undefined
+                      }
+                      className="text-white/70 transition-colors hover:text-white"
+                    >
+                      {link.title}
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+      <div className="border-t border-white/10">
+        <p className="mx-auto max-w-7xl px-4 py-6 text-sm text-white/60 sm:px-6">
+          <a href="https://tatugacamp.com" className="hover:text-white">
+            {LayoutDataLanguage.footer_copyright(lang, new Date().getFullYear())}
+          </a>
         </p>
-        <a href="https://tatugacamp.com" className="text-gray-400 font-medium">
-          © 2024 Tatuga Camp LP. All rights reserved.
-        </a>
-      </section>
-      <section className="flex flex-col items-start justify-start gap-2 p-10">
-        <h1 className=" font-bold text-white">Support</h1>
-        <Link href="/support/contact-us" className="text-gray-400 mt-2 ">
-          Contact us
-        </Link>
-        <Link href="/support/privacy-policy" className="text-gray-400 ">
-          Privacy policy & Terms of service
-        </Link>
-      </section>
-      <section className="flex flex-col items-start justify-start gap-2 p-10">
-        <h1 className=" font-bold text-white">Product</h1>
-        <Link href="/" className="text-gray-400 mt-2 ">
-          Tatuga School
-        </Link>
-        <Link href="/news" className="text-gray-400 ">
-          News
-        </Link>
-      </section>
-      <section className="flex flex-col items-start justify-start gap-2 p-10">
-        <h1 className=" font-bold text-white">Resources</h1>
-        <Link
-          target="_blank"
-          href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-in`}
-          className="text-gray-400 mt-2 "
-        >
-          Login
-        </Link>
-        <Link
-          target="_blank"
-          href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-up`}
-          className="text-gray-400 "
-        >
-          Register
-        </Link>
-        <Link
-          target="_blank"
-          href="https://tatugacamp.com/about-us"
-          className="text-gray-400 "
-        >
-          about us
-        </Link>
-        <Link
-          target="_blank"
-          href="https://document-tatugaschool.my.canva.site"
-          className="text-gray-400 "
-        >
-          document
-        </Link>
-        <Link href="/price" className="text-gray-400 ">
-          Pricing and Plans
-        </Link>
-      </section>
+      </div>
     </footer>
   );
 }
