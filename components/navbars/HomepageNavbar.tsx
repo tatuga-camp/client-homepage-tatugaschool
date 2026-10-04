@@ -1,80 +1,189 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { MdClose, MdMenu } from "react-icons/md";
+import { useGetLanguage } from "../../react-query";
 import { useGetUser } from "../../react-query/user";
+import { LayoutDataLanguage } from "../../data/languages/layout";
 import LanguageSelect from "../common/LanguageSelect";
-const menuNavbars = [
-  {
-    title: "contact us",
-    link: `/support/contact-us`,
-  },
-  {
-    title: "document",
-    link: "https://document-tatugaschool.my.canva.site",
-  },
-  {
-    title: "pricing",
-    link: "/price",
-  },
-];
+
+const GUIDE_URL = "https://document-tatugaschool.my.canva.site";
+
+type NavItem = { title: string; href: string; external?: boolean };
+
+function NavLink({
+  link,
+  current,
+  className,
+}: {
+  link: NavItem;
+  current: boolean;
+  className: string;
+}) {
+  if (link.external) {
+    return (
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {link.title}
+      </a>
+    );
+  }
+  return (
+    <Link
+      href={link.href}
+      aria-current={current ? "page" : undefined}
+      className={className}
+    >
+      {link.title}
+    </Link>
+  );
+}
+
 function HomepageNavbar() {
   const user = useGetUser();
-  return (
-    <nav className="w-full border-b-2 border-black bg-white z-50 gap-2  sticky top-0 p-1 md:p-3 h-20 font-Anuphan flex items-center justify-between">
-      <Link
-        href={"/"}
-        className="flex items-center justify-center gap-1 md:gap-3"
+  const language = useGetLanguage();
+  const lang = language.data ?? "en";
+  const router = useRouter();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Close the phone menu after navigating.
+  useEffect(() => {
+    const close = () => setMenuOpen(false);
+    router.events.on("routeChangeStart", close);
+    return () => router.events.off("routeChangeStart", close);
+  }, [router.events]);
+
+  const schoolHref =
+    user.data && user.data.favoritSchool
+      ? `${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/school/${user.data.favoritSchool}`
+      : `${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}`;
+
+  const links: NavItem[] = [
+    { title: LayoutDataLanguage.nav_pricing(lang), href: "/price" },
+    { title: LayoutDataLanguage.nav_news(lang), href: "/news" },
+    { title: LayoutDataLanguage.nav_guide(lang), href: GUIDE_URL, external: true },
+    { title: LayoutDataLanguage.nav_contact(lang), href: "/support/contact-us" },
+  ];
+
+  const isCurrent = (href: string) =>
+    href.startsWith("/") && router.pathname.startsWith(href);
+
+  const accountActions = user.data ? (
+    <a
+      href={schoolHref}
+      className="inline-flex h-10 items-center gap-2 rounded-full bg-primary-color pl-1.5 pr-4 font-semibold text-white transition-colors hover:bg-primary-color-hover active:bg-primary-color-focus"
+    >
+      <span className="relative h-7 w-7 overflow-hidden rounded-full bg-white">
+        <Image
+          src={user.data.photo}
+          placeholder={user.data.blurHash ? "blur" : "empty"}
+          blurDataURL={user.data.blurHash}
+          fill
+          className="object-cover"
+          sizes="28px"
+          alt=""
+        />
+      </span>
+      {LayoutDataLanguage.nav_go_school(lang)}
+    </a>
+  ) : (
+    <>
+      <a
+        href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-in`}
+        className="inline-flex h-10 items-center rounded-full px-4 font-semibold text-icon-color transition-colors hover:bg-background-color"
       >
-        <div className="relative h-8 w-8 overflow-hidden rounded-2xl ring-1 ring-white transition duration-150 hover:scale-105 active:scale-110">
-          <Image
-            src="/favicon.ico"
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            alt="logo tatuga school"
-          />
+        {LayoutDataLanguage.nav_sign_in(lang)}
+      </a>
+      <a
+        href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-up`}
+        className="inline-flex h-10 items-center rounded-full bg-primary-color px-5 font-semibold text-white transition-colors hover:bg-primary-color-hover active:bg-primary-color-focus"
+      >
+        {LayoutDataLanguage.nav_sign_up(lang)}
+      </a>
+    </>
+  );
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-icon-color/10 bg-white/95 font-Anuphan backdrop-blur supports-[backdrop-filter]:bg-white/80">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6 lg:h-[4.5rem]">
+        <Link
+          href="/"
+          aria-label={LayoutDataLanguage.nav_home(lang)}
+          className="flex shrink-0 items-center gap-2.5"
+        >
+          <span className="relative h-9 w-9 overflow-hidden rounded-xl">
+            <Image src="/favicon.ico" fill sizes="36px" alt="" />
+          </span>
+          <span className="text-lg font-bold text-icon-color">Tatuga School</span>
+        </Link>
+
+        <ul className="hidden items-center gap-1 lg:flex">
+          {links.map((link) => (
+            <li key={link.href}>
+              <NavLink
+                link={link}
+                current={isCurrent(link.href)}
+                className={`rounded-full px-3.5 py-2 font-medium transition-colors hover:bg-background-color hover:text-icon-color ${
+                  isCurrent(link.href) ? "text-icon-color" : "text-icon-color/70"
+                }`}
+              />
+            </li>
+          ))}
+        </ul>
+
+        <div className="ml-auto hidden items-center gap-3 lg:flex">
+          <LanguageSelect className="w-44" />
+          {accountActions}
         </div>
-        <div className="hidden lg:w-40 text-xs font-bold uppercase text-icon-color md:block md:text-sm">
-          Tatuga School
-        </div>
-      </Link>
-      <section className="grow flex gap-5 overflow-auto h-max py-2 lg:justify-end ">
-        <div className="w-40">
-          <LanguageSelect />
-        </div>
-        <div className="flex items-center justify-center gap-5 font-semibold">
-          <a
-            href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-up`}
-            className="w-28 h-10 hover:scale-110 transition duration-100 ring-primary-color ring-1 text-primary-color flex items-center justify-center rounded-2xl"
-          >
-            No Account?
-          </a>
-          <a
-            href={
-              user.data && user.data.favoritSchool
-                ? `${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/school/${user.data.favoritSchool}`
-                : `${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}`
-            }
-            className="w-max px-2 h-10 gap-2
-               text-white transition duration-100 bg-primary-color flex items-center justify-center rounded-2xl"
-          >
-            {user.data && (
-              <div className="w-8 h-8 relative rounded-full overflow-hidden bg-white">
-                <Image
-                  src={user.data.photo}
-                  placeholder={user.data.blurHash ? "blur" : "empty"}
-                  blurDataURL={user.data.blurHash}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  alt="profile picture"
+
+        <button
+          type="button"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          aria-label={
+            menuOpen
+              ? LayoutDataLanguage.nav_close_menu(lang)
+              : LayoutDataLanguage.nav_open_menu(lang)
+          }
+          className="ml-auto flex h-10 w-10 items-center justify-center rounded-full text-icon-color transition-colors hover:bg-background-color lg:hidden"
+        >
+          {menuOpen ? (
+            <MdClose aria-hidden="true" className="h-6 w-6" />
+          ) : (
+            <MdMenu aria-hidden="true" className="h-6 w-6" />
+          )}
+        </button>
+      </nav>
+
+      {menuOpen && (
+        <div
+          id="mobile-menu"
+          className="border-t border-icon-color/10 bg-white px-4 pb-6 pt-2 lg:hidden"
+        >
+          <ul className="flex flex-col">
+            {links.map((link) => (
+              <li key={link.href}>
+                <NavLink
+                  link={link}
+                  current={isCurrent(link.href)}
+                  className="block border-b border-icon-color/5 py-3.5 text-lg font-medium text-icon-color"
                 />
-              </div>
-            )}
-            Teachers Go
-          </a>
+              </li>
+            ))}
+          </ul>
+          <LanguageSelect className="mt-5 w-full" />
+          <div className="mt-4 flex flex-col gap-2 [&>a]:justify-center">
+            {accountActions}
+          </div>
         </div>
-      </section>
-    </nav>
+      )}
+    </header>
   );
 }
 

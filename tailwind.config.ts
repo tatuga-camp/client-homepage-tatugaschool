@@ -28,6 +28,33 @@ const config: Config = {
         "warning-color": "#FFCD1B",
         "error-color": "#F04438",
       },
+      keyframes: {
+        // Paid-school badges in the homepage hero: one entrance, then a slow bob.
+        "badge-in": {
+          from: { opacity: "0", transform: "translateY(18px) scale(0.96)" },
+          to: { opacity: "1", transform: "none" },
+        },
+        "badge-float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-12px)" },
+        },
+        // Track holds two copies of the list; shifting by half loops seamlessly.
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
+        // Swapping the feature preview when a teacher picks another feature.
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+      },
+      animation: {
+        "badge-in": "badge-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both",
+        "badge-float": "badge-float 7s ease-in-out infinite",
+        marquee: "marquee 60s linear infinite",
+        "fade-in": "fade-in 300ms ease-out both",
+      },
     },
   },
   plugins: [],
