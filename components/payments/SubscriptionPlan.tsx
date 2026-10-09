@@ -435,13 +435,7 @@ const SubscriptionPlan = () => {
                         value={members}
                         onValueChange={() => {}}
                         onChange={(value) => {
-                          if (value > 3 && value <= 500) {
-                            setMembers(value);
-                          } else if (value < 4) {
-                            setMembers(4);
-                          } else if (value > 500) {
-                            setMembers(500);
-                          }
+                          setMembers(value);
                         }}
                       />
                       <a

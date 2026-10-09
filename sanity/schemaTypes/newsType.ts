@@ -73,6 +73,15 @@ export const news = defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: "video",
+      title: "Video",
+      description:
+        "Optional. Shown below the article title, above the body text. Use MP4 (H.264) for the widest browser support and keep files small.",
+      type: "file",
+      group: "settings",
+      options: { accept: "video/mp4,video/webm,video/quicktime" },
+    }),
+    defineField({
       name: "slug",
       title: "Slug (URL)",
       type: "slug",

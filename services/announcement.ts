@@ -26,6 +26,11 @@ export type Announcement = {
   bodyEn: PortableTextBlock[];
   bodyTh: PortableTextBlock[];
   coverImage: SanityImageSource | null;
+  video: AnnouncementVideo | null;
+};
+
+export type AnnouncementVideo = {
+  url: string;
 };
 
 const announcementProjection = `{
@@ -40,7 +45,10 @@ const announcementProjection = `{
   // Only pass through a cover image once its asset is finalized. A still-
   // uploading image has an _upload field but no asset, which would crash
   // urlForImage at build time; collapse that to null so callers skip it.
-  "coverImage": select(defined(coverImage.asset) => coverImage, null)
+  "coverImage": select(defined(coverImage.asset) => coverImage, null),
+  // Same finalized-asset guard for the video; dereference the file asset so
+  // the page gets a playable CDN URL.
+  "video": select(defined(video.asset) => { "url": video.asset->url }, null)
 }`;
 
 export async function getAllAnnouncements(): Promise<Announcement[]> {

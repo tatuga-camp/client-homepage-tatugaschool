@@ -134,6 +134,21 @@ export default function NewsArticlePage({ announcement }: Props) {
         <h1 className="text-3xl font-bold text-icon-color md:text-4xl">
           {title}
         </h1>
+        {announcement.video?.url && (
+          <div className="aspect-video w-full overflow-hidden rounded-2xl bg-black">
+            <video
+              controls
+              playsInline
+              preload="metadata"
+              aria-label={title}
+              className="h-full w-full object-contain"
+              // No <source type>: Chrome rejects "video/quicktime" outright even
+              // though most .mov uploads are H.264 and play fine when sniffed.
+              // "#t=0.1" makes iOS Safari paint the first frame as the thumbnail.
+              src={`${announcement.video.url}#t=0.1`}
+            />
+          </div>
+        )}
         <article>
           <PortableTextBody value={body} />
         </article>
