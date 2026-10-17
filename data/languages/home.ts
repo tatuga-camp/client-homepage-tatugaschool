@@ -153,21 +153,21 @@ export const HomeDataLanguage = {
       case "th":
         return [
           { text: "โรงเรียน " },
-          { text: "4,094", strong: true },
+          { text: "5,196", strong: true },
           { text: " แห่ง ผู้ใช้งาน " },
-          { text: "5,133", strong: true },
+          { text: "6,138", strong: true },
           { text: " คน และนักเรียน " },
-          { text: "112,480", strong: true },
+          { text: "119,229", strong: true },
           { text: " คน ใช้ Tatuga School อยู่แล้ว" },
         ];
       case "en":
       default:
         return [
-          { text: "4,094", strong: true },
+          { text: "5,196", strong: true },
           { text: " schools, " },
-          { text: "5,133", strong: true },
+          { text: "6,138", strong: true },
           { text: " users and " },
-          { text: "112,480", strong: true },
+          { text: "119,229", strong: true },
           { text: " students already use Tatuga School." },
         ];
     }
@@ -187,11 +187,11 @@ export const HomeDataLanguage = {
   features_intro: (language: Language) => {
     switch (language) {
       case "en":
-        return "Tools for attendance, assignments, grading and keeping every student on track.";
+        return "Tools for attendance, assignments, quizzes, grading and keeping every student on track.";
       case "th":
-        return "เครื่องมือสำหรับเช็คชื่อ สั่งงาน ให้คะแนน และติดตามนักเรียนทุกคนให้ไม่หลุด";
+        return "เครื่องมือสำหรับเช็คชื่อ สั่งงาน ทำแบบทดสอบ ให้คะแนน และติดตามนักเรียนทุกคนให้ไม่หลุด";
       default:
-        return "Tools for attendance, assignments, grading and keeping every student on track.";
+        return "Tools for attendance, assignments, quizzes, grading and keeping every student on track.";
     }
   },
   features_rubric_title: (language: Language) => {
@@ -237,11 +237,11 @@ export const HomeDataLanguage = {
   features_materials_title: (language: Language) => {
     switch (language) {
       case "en":
-        return "Over 400 free teaching materials";
+        return "Over 500 free teaching materials";
       case "th":
-        return "สื่อการสอนฟรีมากกว่า 400 รายการ";
+        return "สื่อการสอนฟรีมากกว่า 500 รายการ";
       default:
-        return "Over 400 free teaching materials";
+        return "Over 500 free teaching materials";
     }
   },
   features_materials_desc: (language: Language) => {
@@ -332,6 +332,158 @@ export const HomeDataLanguage = {
         return "คะแนนสะสมและรางวัลช่วยกระตุ้นให้นักเรียนอยากเรียนและส่งงานอย่างสม่ำเสมอ";
       default:
         return "Points and rewards encourage students to keep learning.";
+    }
+  },
+
+  // New features (shown first in the list with a "New" badge)
+  features_new_badge: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "New";
+      case "th":
+        return "ใหม่";
+      default:
+        return "New";
+    }
+  },
+  features_ai_quiz_title: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Generate quizzes with AI";
+      case "th":
+        return "สร้างแบบทดสอบด้วย AI";
+      default:
+        return "Generate quizzes with AI";
+    }
+  },
+  features_ai_quiz_desc: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Upload a PDF or an image, or paste a YouTube or website link. Choose how many questions, which question types and how many choices, and AI writes the questions with their answers. You can review and edit everything before students see it.";
+      case "th":
+        return "อัปโหลดไฟล์ PDF หรือรูปภาพ หรือวางลิงก์ YouTube หรือเว็บไซต์ เลือกจำนวนข้อ ประเภทคำถาม และจำนวนตัวเลือก แล้ว AI จะเขียนคำถามพร้อมเฉลยให้ ครูตรวจและแก้ไขได้ทุกข้อก่อนให้นักเรียนทำ";
+      default:
+        return "Turn a PDF, image, YouTube video or website into quiz questions with answers.";
+    }
+  },
+  features_quiz_title: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Auto-graded quizzes with test mode";
+      case "th":
+        return "แบบทดสอบตรวจอัตโนมัติ พร้อมโหมดสอบ";
+      default:
+        return "Auto-graded quizzes with test mode";
+    }
+  },
+  features_quiz_desc: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Ask single-answer, multiple-answer and fill-in-the-blank questions, with images, PDFs, video or audio attached. Set a time limit and shuffle questions and choices. Test mode shows you when a student leaves the quiz screen, and scores are calculated for you.";
+      case "th":
+        return "สร้างคำถามแบบเลือกตอบข้อเดียว ตอบได้หลายข้อ และเติมคำในช่องว่าง แนบรูปภาพ PDF วิดีโอ หรือเสียงได้ ตั้งเวลาทำและสลับลำดับคำถามกับตัวเลือกได้ โหมดสอบจะแจ้งให้ครูรู้เมื่อนักเรียนออกจากหน้าข้อสอบ และระบบคิดคะแนนให้อัตโนมัติ";
+      default:
+        return "Timed, shuffled quizzes that grade themselves, with an optional test mode.";
+    }
+  },
+  features_video_quiz_title: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Video lessons with pop-up questions";
+      case "th":
+        return "บทเรียนวิดีโอพร้อมคำถามระหว่างดู";
+      default:
+        return "Video lessons with pop-up questions";
+    }
+  },
+  features_video_quiz_desc: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Upload a video or use a YouTube link, then pin questions to moments in the video. The video pauses and students answer as they watch.";
+      case "th":
+        return "อัปโหลดวิดีโอหรือใช้ลิงก์ YouTube แล้วปักหมุดคำถามไว้ที่ช่วงเวลาต่าง ๆ ในวิดีโอ วิดีโอจะหยุดให้นักเรียนตอบคำถามระหว่างดู";
+      default:
+        return "Pin questions to moments in a video or YouTube lesson.";
+    }
+  },
+  features_picker_title: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Pick a student with a wheel, cards or a slider";
+      case "th":
+        return "สุ่มเรียกนักเรียนด้วยวงล้อ ไพ่ หรือสไลด์";
+      default:
+        return "Pick a student with a wheel, cards or a slider";
+    }
+  },
+  features_picker_desc: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Call on students fairly with a spinning wheel of names, a deck of cards or a slider. Students who were already picked are set aside, and you can give points right from the reveal.";
+      case "th":
+        return "เรียกนักเรียนอย่างยุติธรรมด้วยวงล้อสุ่มชื่อ สำรับไพ่ หรือสไลด์ คนที่ถูกเลือกแล้วจะถูกแยกไว้ และให้คะแนนได้ทันทีจากหน้าที่เปิดชื่อ";
+      default:
+        return "Call on students fairly and give points right away.";
+    }
+  },
+  features_word_cloud_title: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Live word cloud";
+      case "th":
+        return "เวิร์ดคลาวด์แบบสด";
+      default:
+        return "Live word cloud";
+    }
+  },
+  features_word_cloud_desc: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Ask the class a question and watch their answers appear as a word cloud or a bar chart as they come in. Share a results link to show it on any screen.";
+      case "th":
+        return "ถามคำถามกับทั้งห้อง แล้วดูคำตอบของนักเรียนปรากฏเป็นเวิร์ดคลาวด์หรือกราฟแท่งทันทีที่ส่งเข้ามา แชร์ลิงก์ผลลัพธ์เพื่อเปิดบนจอไหนก็ได้";
+      default:
+        return "See the class's answers appear live as a word cloud.";
+    }
+  },
+  features_attendance_qr_title: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Attendance with QR check-in";
+      case "th":
+        return "เช็คชื่อด้วยคิวอาร์โค้ด";
+      default:
+        return "Attendance with QR check-in";
+    }
+  },
+  features_attendance_qr_desc: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Mark the whole class in a few taps, or show a QR code that students scan to check themselves in during class time.";
+      case "th":
+        return "เช็คชื่อทั้งห้องได้ในไม่กี่แตะ หรือเปิดคิวอาร์โค้ดให้นักเรียนสแกนเช็คชื่อเองในช่วงเวลาเรียน";
+      default:
+        return "Mark the whole class quickly, or let students scan a QR code.";
+    }
+  },
+  features_share_progress_title: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Share class progress with one link";
+      case "th":
+        return "แชร์ความก้าวหน้าของชั้นเรียนด้วยลิงก์เดียว";
+      default:
+        return "Share class progress with one link";
+    }
+  },
+  features_share_progress_desc: (language: Language) => {
+    switch (language) {
+      case "en":
+        return "Send one link to students and parents. Choose whether it shows work status only, scores, or grades. Scores you have hidden stay hidden.";
+      case "th":
+        return "ส่งลิงก์เดียวให้นักเรียนและผู้ปกครอง เลือกได้ว่าจะแสดงแค่สถานะการส่งงาน คะแนน หรือเกรด คะแนนที่ครูซ่อนไว้จะยังคงซ่อนอยู่";
+      default:
+        return "Send one link that shows status, scores or grades.";
     }
   },
 

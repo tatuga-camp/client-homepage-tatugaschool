@@ -3,10 +3,23 @@ import { useId, useRef, useState, type KeyboardEvent } from "react";
 import type { Language } from "../../interfaces";
 import { HomeDataLanguage } from "../../data/languages/home";
 
-type Feature = { title: string; description: string; image: string };
+type Feature = {
+  title: string;
+  description: string;
+  /** Path under /public, e.g. "/images/features/ai-quiz.png". Empty until the screenshot is added. */
+  image: string;
+  isNew?: boolean;
+};
 
 function getFeatures(language: Language): Feature[] {
   return [
+    // New features first. Add each screenshot to public/images/features/ and set `image`.
+    {
+      title: HomeDataLanguage.features_ai_quiz_title(language),
+      description: HomeDataLanguage.features_ai_quiz_desc(language),
+      image: "/images/features/7.jpg",
+      isNew: true,
+    },
     {
       title: HomeDataLanguage.features_rubric_title(language),
       description: HomeDataLanguage.features_rubric_desc(language),
@@ -43,6 +56,44 @@ function getFeatures(language: Language): Feature[] {
       image: "/images/features/4.png",
     },
   ];
+}
+
+/** The screenshot, or a quiet title card while the screenshot is still missing. */
+function FeaturePreview({
+  feature,
+  sizes,
+  className,
+}: {
+  feature: Feature;
+  sizes: string;
+  className: string;
+}) {
+  if (feature.image) {
+    return (
+      <Image
+        src={feature.image}
+        alt=""
+        fill
+        sizes={sizes}
+        className={className}
+      />
+    );
+  }
+  return (
+    <div className="absolute inset-0 flex items-center justify-center rounded-3xl bg-primary-color/5 p-8 text-center">
+      <span className="text-xl font-semibold text-primary-color/70">
+        {feature.title}
+      </span>
+    </div>
+  );
+}
+
+function NewBadge({ language }: { language: Language }) {
+  return (
+    <span className="ml-2 inline-flex shrink-0 items-center rounded-full bg-primary-color/10 px-2 py-0.5 align-middle text-xs font-semibold text-primary-color">
+      {HomeDataLanguage.features_new_badge(language)}
+    </span>
+  );
 }
 
 /**
@@ -87,7 +138,7 @@ function FeatureExplorer({ language }: { language: Language }) {
             {features.map((feature, index) => {
               const selected = index === active;
               return (
-                <div key={feature.image}>
+                <div key={feature.title}>
                   <button
                     ref={(node) => {
                       tabRefs.current[index] = node;
@@ -107,6 +158,7 @@ function FeatureExplorer({ language }: { language: Language }) {
                     }`}
                   >
                     {feature.title}
+                    {feature.isNew && <NewBadge language={language} />}
                   </button>
                   {selected && (
                     <div className="motion-safe:animate-fade-in pb-6 pl-5 lg:hidden">
@@ -114,10 +166,8 @@ function FeatureExplorer({ language }: { language: Language }) {
                         {feature.description}
                       </p>
                       <div className="relative mt-4 aspect-[4/3] overflow-hidden rounded-3xl bg-background-color">
-                        <Image
-                          src={feature.image}
-                          alt=""
-                          fill
+                        <FeaturePreview
+                          feature={feature}
                           sizes="(max-width: 1024px) 90vw, 1px"
                           className="object-contain p-6"
                         />
@@ -140,10 +190,8 @@ function FeatureExplorer({ language }: { language: Language }) {
               className="motion-safe:animate-fade-in flex h-full flex-col rounded-[2rem] bg-background-color p-10"
             >
               <div className="relative min-h-[22rem] flex-1">
-                <Image
-                  src={current.image}
-                  alt=""
-                  fill
+                <FeaturePreview
+                  feature={current}
                   sizes="(min-width: 1024px) 40vw, 1px"
                   className="object-contain"
                 />
