@@ -13,7 +13,7 @@ function Index() {
         title={`${HomeDataLanguage.tatuga_school(language.data ?? "en")} — Pricing`}
         description={HomeDataLanguage.seo_description(language.data ?? "en")}
       />
-      <div className="bg-white min-h-screen">
+      <div className="min-h-screen bg-background-color">
         <SubscriptionPlan />
       </div>
     </Layout>
