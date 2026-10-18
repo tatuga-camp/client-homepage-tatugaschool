@@ -2,432 +2,304 @@ import { useState } from "react";
 import { SubscriptionDataLanguage } from "../../data/languages/subscription";
 import { useGetLanguage } from "../../react-query";
 import InputNumber from "../common/InputNumber";
-import { FiCheck } from "react-icons/fi";
-import { FiX } from "react-icons/fi";
+import { FiCheck, FiX } from "react-icons/fi";
+import { HiSparkles } from "react-icons/hi2";
 
-const pricingData = [
+type PlanKey = "FREE" | "BASIC" | "PREMIUM" | "ENTERPRISE";
+type FeatureValue = boolean | { en: string; th: string };
+type FeatureKey =
+  | "basic"
+  | "users"
+  | "storage"
+  | "support"
+  | "classrooms"
+  | "subjects"
+  | "lineBot";
+
+type PricingPlan = {
+  key: PlanKey;
+  title: string;
+  title_th: string;
+  /** Stripe product title; null for the free plan. */
+  product: string | null;
+  popular: boolean;
+  /** Baht. monthValue 0 on a paid plan means annual billing only. */
+  price: { monthValue: number; yearValue: number; permember: boolean };
+  infoNote: string;
+  infoNote_th: string;
+  /** Monthly AI quiz generations per school; mirrors QUIZ_GEN_LIMITS on the server. */
+  aiQuiz: number;
+  features: Record<FeatureKey, FeatureValue>;
+};
+
+const featureLabels: { key: FeatureKey; en: string; th: string }[] = [
+  { key: "basic", en: "Basic Feature", th: "ฟีเจอร์พื้นฐาน" },
+  { key: "users", en: "Members in a school", th: "สมาชิกในโรงเรียน" },
+  { key: "storage", en: "Total Storage Size", th: "ขนาดพื้นที่จัดเก็บข้อมูล" },
+  { key: "support", en: "Direct Chat Support", th: "แชทกับผู้พัฒนา" },
+  { key: "classrooms", en: "Classroom Limit", th: "จำกัดห้องเรียน" },
+  { key: "subjects", en: "Subject Limit", th: "จำกัดวิชา" },
+  { key: "lineBot", en: "LINE Chat Bot", th: "แชทบอทใน LINE" },
+];
+
+const unlimited = { en: "Unlimited", th: "ไม่จำกัด" };
+
+const pricingData: PricingPlan[] = [
   {
-    mainTitle: "",
-    mainTitle_th: "",
-    price: {
-      month: null,
-      year: null,
-      permember: false,
-    },
+    key: "FREE",
+    title: "FREE",
+    title_th: "ฟรี",
+    product: null,
     popular: false,
-    product: false,
-    infoNote: "",
-    infoNote_th: "",
-    "Basic Feature": "Basic Feature",
-    "Basic Feature_th": "ฟีเจอร์พื้นฐาน",
-    Users: "Members in a school",
-    Users_th: "สมาชิกในโรงเรียน",
-    "Total Storage Size": "Total Storage Size",
-    "Total Storage Size_th": "ขนาดพื้นที่จัดเก็บข้อมูล",
-    Support: "Direct Chat Support",
-    Support_th: "แชทกับผู้พัฒนา",
-    Classroom_Limit: "Classroom Limit",
-    Classroom_Limit_th: "จำกัดห้องเรียน",
-    Subject_Limit: "Subject Limit",
-    Subject_Limit_th: "จำกัดวิชา",
-    line_chat_bot: "LINE Chat Bot",
-    line_chat_bot_th: "แชทบอทใน LINE",
-  },
-  {
-    mainTitle: "FREE",
-    mainTitle_th: "ฟรี",
-    popular: false,
-    product: false,
-    price: {
-      month: "Free",
-      month_th: "ฟรี",
-      year: "Free",
-      year_th: "ฟรี",
-      monthValue: 0,
-      yearValue: 0,
-      permember: false,
-    },
+    price: { monthValue: 0, yearValue: 0, permember: false },
     infoNote: "Free plan is good for 1 teacher in a school.",
     infoNote_th: "แผนฟรีเหมาะสำหรับครู 1 คนในโรงเรียน",
-    "Basic Feature": true,
-    Users: 2,
-    Users_th: 2,
-    "Total Storage Size": "15GB",
-    "Total Storage Size_th": "15GB",
-    Support: true,
-    Classroom_Limit: "3 classrooms",
-    Classroom_Limit_th: "3 ห้องเรียน",
-    Subject_Limit: "3 subjects",
-    Subject_Limit_th: "3 วิชา",
-    line_chat_bot: false,
+    aiQuiz: 5,
+    features: {
+      basic: true,
+      users: { en: "2", th: "2" },
+      storage: { en: "15GB", th: "15GB" },
+      support: true,
+      classrooms: { en: "3 classrooms", th: "3 ห้องเรียน" },
+      subjects: { en: "3 subjects", th: "3 วิชา" },
+      lineBot: false,
+    },
   },
   {
-    mainTitle: "BASIC",
-    mainTitle_th: "พื้นฐาน",
-    popular: false,
+    key: "BASIC",
+    title: "BASIC",
+    title_th: "พื้นฐาน",
     product: "Tatuga School Basic",
-    product_th: "โรงเรียนทาทูก้า พื้นฐาน",
-    price: {
-      month: "ไม่มี",
-      month_th: "ไม่มี",
-      year: "590฿",
-      year_th: "590฿",
-      monthValue: 0,
-      yearValue: 590,
-      permember: false,
-    },
+    popular: false,
+    price: { monthValue: 0, yearValue: 590, permember: false },
     infoNote: "Basic plan is good for 1 - 2 teachers in a school",
     infoNote_th: "แผนพื้นฐานเหมาะสำหรับครู 1 - 2 คนในโรงเรียน",
-    "Basic Feature": true,
-    Users: 2,
-    Users_th: 2,
-    "Total Storage Size": "Unlimited",
-    "Total Storage Size_th": "ไม่จำกัด",
-    Support: true,
-    Classroom_Limit: "10 classrooms",
-    Classroom_Limit_th: "10 ห้องเรียน",
-    Subject_Limit: "10 subjects",
-    Subject_Limit_th: "10 วิชา",
-    line_chat_bot: false,
+    aiQuiz: 100,
+    features: {
+      basic: true,
+      users: { en: "2", th: "2" },
+      storage: unlimited,
+      support: true,
+      classrooms: { en: "10 classrooms", th: "10 ห้องเรียน" },
+      subjects: { en: "10 subjects", th: "10 วิชา" },
+      lineBot: false,
+    },
   },
   {
-    mainTitle: "PREMIUM",
-    mainTitle_th: "พรีเมียม",
+    key: "PREMIUM",
+    title: "PREMIUM",
+    title_th: "พรีเมียม",
     product: "Tatuga School Premium",
-    product_th: "โรงเรียนทาทูก้า พรีเมียม",
     popular: true,
-    price: {
-      month: "290฿",
-      month_th: "290฿",
-      monthValue: 290,
-      year: "1,490฿",
-      year_th: "1,490฿",
-      yearValue: 1490,
-      permember: false,
-    },
+    price: { monthValue: 290, yearValue: 1490, permember: false },
     infoNote: "Premium plan is good for 1 - 3 teachers in a school",
     infoNote_th: "แผนพรีเมียมเหมาะสำหรับครู 1 - 3 คนในโรงเรียน",
-    "Basic Feature": true,
-    Users: 3,
-    Users_th: 3,
-
-    "Total Storage Size": "Unlimited",
-    "Total Storage Size_th": "ไม่จำกัด",
-    Support: true,
-    Classroom_Limit: "20 classrooms",
-    Classroom_Limit_th: "20 ห้องเรียน",
-    Subject_Limit: "30 subjects",
-    Subject_Limit_th: "30 วิชา",
-    line_chat_bot: "Available",
-    line_chat_bot_th: "มีให้บริการ",
+    aiQuiz: 300,
+    features: {
+      basic: true,
+      users: { en: "3", th: "3" },
+      storage: unlimited,
+      support: true,
+      classrooms: { en: "20 classrooms", th: "20 ห้องเรียน" },
+      subjects: { en: "30 subjects", th: "30 วิชา" },
+      lineBot: true,
+    },
   },
   {
-    popular: false,
-    mainTitle: "ENTERPRISE",
-    mainTitle_th: "องค์กร",
+    key: "ENTERPRISE",
+    title: "ENTERPRISE",
+    title_th: "องค์กร",
     product: "Tatuga School Enterprise",
-    product_th: "โรงเรียนทาทูก้า องค์กร",
-    price: {
-      month: "150฿",
-      month_th: "150฿",
-      monthValue: 150,
-      year: "1,100฿",
-      year_th: "1,100฿",
-      yearValue: 1100,
-      permember: true,
-    },
+    popular: false,
+    price: { monthValue: 150, yearValue: 1100, permember: true },
     infoNote:
       "Enterprise plan is good for a school that has more than 5 teachers",
     infoNote_th: "แผนองค์กรเหมาะสำหรับโรงเรียนที่มีครูมากกว่า 5 คน",
-    "Basic Feature": true,
-    Users: "custom",
-    Users_th: "กำหนดเอง",
-    "Total Storage Size": "Unlimited",
-    "Total Storage Size_th": "ไม่จำกัด",
-    Support: true,
-    Classroom_Limit: "Unlimited",
-    Classroom_Limit_th: "ไม่จำกัด",
-    Subject_Limit: "Unlimited",
-    Subject_Limit_th: "ไม่จำกัด",
-    line_chat_bot: "Available",
-    line_chat_bot_th: "มีให้บริการ",
+    aiQuiz: 2000,
+    features: {
+      basic: true,
+      users: { en: "custom", th: "กำหนดเอง" },
+      storage: unlimited,
+      support: true,
+      classrooms: unlimited,
+      subjects: unlimited,
+      lineBot: true,
+    },
   },
 ];
 
-const planColors: {
-  [key: string]: {
-    bg: string;
-    text: string;
-    button: string;
-    popular: string;
-    border: string;
-    rightIcon: string;
-  };
-} = {
-  FREE: {
-    bg: "bg-green-50",
-    text: "text-green-800",
-    button: "bg-green-500 text-white",
-    popular: "bg-green-200",
-    border: "border-green-300",
-    rightIcon: "text-green-500",
-  },
-  BASIC: {
-    bg: "bg-blue-50",
-    text: "text-blue-800",
-    button: "bg-blue-500 text-white",
-    popular: "bg-blue-200",
-    border: "border-blue-300",
-    rightIcon: "text-blue-500",
-  },
-  PREMIUM: {
-    bg: "bg-purple-50",
-    text: "text-purple-800",
-    button: "bg-purple-500 text-white",
-    popular: "bg-purple-200",
-    border: "border-purple-300",
-    rightIcon: "text-purple-500",
-  },
-  ENTERPRISE: {
-    bg: "bg-yellow-50",
-    text: "text-yellow-800",
-    button: "bg-yellow-400 text-black",
-    popular: "bg-yellow-200",
-    border: "border-yellow-300",
-    rightIcon: "text-yellow-500",
-  },
+const baht = (value: number) => `${value.toLocaleString()}฿`;
+
+const calculateMaxSavings = () => {
+  let maxSavings = 0;
+  pricingData.forEach(({ price }) => {
+    if (price.monthValue > 0 && price.yearValue) {
+      const monthlyTotal = price.monthValue * 12;
+      const savings = ((monthlyTotal - price.yearValue) / monthlyTotal) * 100;
+      if (savings > maxSavings) {
+        maxSavings = savings;
+      }
+    }
+  });
+  return Math.round(maxSavings);
 };
+
+const signUpUrl = `${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-up`;
 
 const SubscriptionPlan = () => {
   const [monthprice, setMonthPrice] = useState(false);
-  // Defaulting to English as per requirement for public page or no language context availability
   const language = useGetLanguage();
+  const lang = language.data ?? "en";
   const [members, setMembers] = useState(4);
 
-  const features = [
-    "Basic Feature",
-    "Users",
-    "Total Storage Size",
-    "Support",
-    "Classroom_Limit",
-    "Subject_Limit",
-    "line_chat_bot",
-  ] as const;
-
-  const calculateMaxSavings = () => {
-    let maxSavings = 0;
-    pricingData.slice(1).forEach((plan) => {
-      const price = plan.price as any;
-      if (price.monthValue > 0 && price.yearValue) {
-        const monthlyTotal = price.monthValue * 12;
-        const savings = ((monthlyTotal - price.yearValue) / monthlyTotal) * 100;
-        if (savings > maxSavings) {
-          maxSavings = savings;
-        }
-      }
-    });
-    return Math.round(maxSavings);
-  };
-
   return (
-    <div className="flex min-h-dvh w-full items-center justify-center font-sans">
-      <div className="mx-auto w-full max-w-7xl px-4 pb-10">
-        <div className="flex flex-col items-center py-8 lg:py-14">
-          <span className="text-base text-primary-color">
-            {SubscriptionDataLanguage.pricing(language.data ?? "en")}
+    <section className="w-full bg-background-color font-Anuphan">
+      <div className="mx-auto w-full max-w-6xl px-4 pb-20 sm:px-6 sm:pb-28">
+        <div className="flex flex-col items-center pb-10 pt-14 text-center sm:pt-20">
+          <span className="text-sm font-semibold text-primary-color">
+            {SubscriptionDataLanguage.pricing(lang)}
           </span>
-          <span className="mb-6 mt-3 text-center text-4xl font-semibold sm:text-5xl">
-            {SubscriptionDataLanguage.title(language.data ?? "en")}
-          </span>
-          <span className="text-center text-lg font-light sm:text-xl">
-            {SubscriptionDataLanguage.description(language.data ?? "en")}
-          </span>
-          {/* billing type div */}
-          <div className="m-auto mt-5 flex items-center justify-center space-x-1 rounded-2xl bg-gray-200 p-2 md:mt-10">
+          <h1 className="mt-3 text-4xl font-bold leading-tight text-icon-color sm:text-5xl">
+            {SubscriptionDataLanguage.title(lang)}
+          </h1>
+          <p className="mt-4 text-lg leading-relaxed text-icon-color/70">
+            {SubscriptionDataLanguage.description(lang)}
+          </p>
+          <div
+            role="radiogroup"
+            className="mt-8 inline-flex items-center gap-1 rounded-full bg-white p-1 ring-1 ring-icon-color/10"
+          >
             <button
+              type="button"
+              role="radio"
+              aria-checked={monthprice}
               onClick={() => setMonthPrice(true)}
-              className={`w-40 rounded-2xl px-2 py-2 text-gray-600 transition-colors duration-300 sm:w-60 ${
+              className={`h-11 rounded-full px-5 text-sm font-semibold transition-colors sm:px-6 ${
                 monthprice
-                  ? "bg-white text-black shadow-md"
-                  : "hover:bg-gray-300"
+                  ? "bg-primary-color text-white"
+                  : "text-icon-color/70 hover:text-icon-color"
               }`}
             >
-              {SubscriptionDataLanguage.monthly(language.data ?? "en")}
+              {SubscriptionDataLanguage.monthly(lang)}
             </button>
             <button
+              type="button"
+              role="radio"
+              aria-checked={!monthprice}
               onClick={() => setMonthPrice(false)}
-              className={`w-40 rounded-2xl px-2 py-2 text-gray-600 transition-colors duration-300 sm:w-60 ${
+              className={`flex h-11 items-center gap-2 rounded-full pl-5 pr-2 text-sm font-semibold transition-colors sm:pl-6 ${
                 !monthprice
-                  ? "bg-white text-black shadow-md"
-                  : "hover:bg-gray-300"
+                  ? "bg-primary-color text-white"
+                  : "text-icon-color/70 hover:text-icon-color"
               }`}
             >
-              {SubscriptionDataLanguage.annual(language.data ?? "en")}
-            </button>
-          </div>
-          {!monthprice && (
-            <div className="mt-4 text-center">
-              <span className="rounded-full bg-red-100 px-4 py-2 text-sm font-semibold text-red-600">
-                Save up to {calculateMaxSavings()}%
-              </span>
-            </div>
-          )}
-        </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {pricingData.slice(1).map((data, index) => {
-            const colorScheme =
-              planColors[data.mainTitle as keyof typeof planColors] ||
-              planColors.FREE;
-            return (
-              <div
-                key={index}
-                className={`flex transform flex-col rounded-3xl p-6 transition-transform hover:scale-105 ${
-                  colorScheme.bg
-                } ${
-                  data.popular
-                    ? `border-4 ${colorScheme.border}`
-                    : `border-2 ${colorScheme.border}`
+              {SubscriptionDataLanguage.annual(lang)}
+              <span
+                className={`hidden rounded-full px-2 py-0.5 text-xs sm:inline ${
+                  !monthprice
+                    ? "bg-white/20 text-white"
+                    : "bg-success-color/10 text-success-color"
                 }`}
               >
-                {data.popular && (
-                  <div className={`mb-4 text-center`}>
-                    <span
-                      className={`rounded-full px-4 py-1 text-sm font-semibold ${colorScheme.popular} ${colorScheme.text}`}
-                    >
-                      {SubscriptionDataLanguage.popular(language.data ?? "en")}
-                    </span>
-                  </div>
+                {SubscriptionDataLanguage.save_up_to(
+                  lang,
+                  calculateMaxSavings(),
                 )}
-                <div
-                  className={`text-center text-2xl font-bold ${colorScheme.text}`}
-                >
-                  {(language.data ?? "en" === "en")
-                    ? data.mainTitle
-                    : data.mainTitle_th}
-                </div>
-                <div className="my-4 text-center">
-                  <div className="flex items-baseline justify-center gap-x-2">
-                    <span
-                      className={`text-5xl font-extrabold ${colorScheme.text}`}
-                    >
-                      {data.mainTitle === "FREE" ||
-                      data.mainTitle === "PREMIUM" ||
-                      data.mainTitle === "BASIC"
-                        ? monthprice
-                          ? (language.data ?? "en" === "en")
-                            ? data.price?.month
-                            : (data.price as any)?.month_th
-                          : (language.data ?? "en" === "en")
-                            ? data.price?.year
-                            : (data.price as any)?.year_th
-                        : null}
-                      {data.mainTitle === "ENTERPRISE" && (
-                        <>
-                          {monthprice
-                            ? (
-                                (data.price as any)?.monthValue * members
-                              ).toLocaleString()
-                            : (
-                                (data.price as any)?.yearValue * members
-                              ).toLocaleString()}
-                          ฿
-                        </>
-                      )}
+              </span>
+            </button>
+          </div>
+          <span className="mt-3 rounded-full bg-success-color/10 px-3 py-1 text-xs font-semibold text-success-color sm:hidden">
+            {SubscriptionDataLanguage.save_up_to(lang, calculateMaxSavings())}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {pricingData.map((plan) => {
+            const { price } = plan;
+            const seats = price.permember ? members : 1;
+            const isFree = price.monthValue === 0 && price.yearValue === 0;
+            const monthlyUnavailable =
+              monthprice && price.monthValue === 0 && !isFree;
+            const amount =
+              (monthprice ? price.monthValue : price.yearValue) * seats;
+            const priceText = isFree
+              ? lang === "en"
+                ? "Free"
+                : "ฟรี"
+              : monthlyUnavailable
+                ? "—"
+                : baht(amount);
+            const period = isFree
+              ? lang === "en"
+                ? "Free forever"
+                : "ใช้ฟรีตลอดไป"
+              : monthlyUnavailable
+                ? SubscriptionDataLanguage.annual_only(lang)
+                : price.permember
+                  ? lang === "en"
+                    ? `for ${members} teachers / ${monthprice ? "month" : "year"}`
+                    : `สำหรับคุณครู ${members} ท่าน / ${monthprice ? "เดือน" : "ปี"}`
+                  : lang === "en"
+                    ? `per ${monthprice ? "month" : "year"}`
+                    : `ต่อ${monthprice ? "เดือน" : "ปี"}`;
+            const ctaClass = `flex h-12 w-full items-center justify-center rounded-full font-semibold transition-colors ${
+              plan.popular || price.permember
+                ? "bg-primary-color text-white shadow-[0_14px_30px_-14px_rgba(44,124,209,0.9)] hover:bg-primary-color-hover active:bg-primary-color-focus"
+                : "bg-white text-icon-color ring-1 ring-icon-color/20 hover:ring-icon-color/40"
+            }`;
+
+            return (
+              <div
+                key={plan.key}
+                className={`flex flex-col rounded-3xl bg-white p-6 ${
+                  plan.popular
+                    ? "shadow-[0_24px_48px_-28px_rgba(44,124,209,0.6)] ring-2 ring-primary-color"
+                    : "ring-1 ring-icon-color/10"
+                }`}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <h2 className="text-lg font-bold text-icon-color">
+                    {lang === "en" ? plan.title : plan.title_th}
+                  </h2>
+                  {plan.popular && (
+                    <span className="rounded-full bg-primary-color px-3 py-1 text-xs font-semibold text-white">
+                      {SubscriptionDataLanguage.popular(lang)}
                     </span>
-                    {!monthprice && (data.price as any).monthValue > 0 && (
-                      <span className="text-2xl text-gray-500 line-through">
-                        {data.mainTitle === "ENTERPRISE"
-                          ? (
-                              (data.price as any).monthValue *
-                              members *
-                              12
-                            ).toLocaleString()
-                          : (
-                              (data.price as any).monthValue * 12
-                            ).toLocaleString()}
-                        ฿
-                      </span>
-                    )}
-                  </div>
-                  <div
-                    className={`text-sm font-medium text-gray-500 ${colorScheme.text}`}
-                  >
-                    {data.price.permember
-                      ? monthprice
-                        ? SubscriptionDataLanguage.per_member_month(
-                            language.data ?? "en",
-                          )
-                        : SubscriptionDataLanguage.per_member_year(
-                            language.data ?? "en",
-                          )
-                      : monthprice
-                        ? SubscriptionDataLanguage.monthly(
-                            language.data ?? "en",
-                          )
-                        : SubscriptionDataLanguage.annual(
-                            language.data ?? "en",
-                          )}
-                  </div>
-                  {!monthprice && (data.price as any).yearValue > 0 && (
-                    <div className="mt-2 flex justify-center">
-                      <span className="rounded-lg bg-red-100 px-3 py-1 text-sm font-semibold text-red-600">
-                        {SubscriptionDataLanguage.only(language.data ?? "en")}{" "}
-                        {Math.round(
-                          data.mainTitle === "ENTERPRISE"
-                            ? ((data.price as any).yearValue * members) / 12
-                            : (data.price as any).yearValue / 12,
-                        ).toLocaleString()}
-                        {SubscriptionDataLanguage.month_unit(
-                          language.data ?? "en",
-                        )}
-                      </span>
-                    </div>
                   )}
                 </div>
-                <p className="h-16 text-center text-sm text-gray-600">
-                  {(language.data ?? "en" === "en")
-                    ? data.infoNote
-                    : data.infoNote_th}
+                <p className="mt-1 text-sm leading-snug md:min-h-14 text-icon-color/60">
+                  {lang === "en" ? plan.infoNote : plan.infoNote_th}
                 </p>
 
-                <div className="flex-grow">
-                  <ul className="my-6 space-y-3">
-                    {features.map((feature, i) => {
-                      return (
-                        <li key={i} className="flex items-start">
-                          {data[feature] === false ? (
-                            <FiX
-                              className={`mr-2 h-6 w-6 flex-shrink-0 text-red-500`}
-                            />
-                          ) : (
-                            <FiCheck
-                              className={`mr-2 h-6 w-6 flex-shrink-0 ${colorScheme.rightIcon}`}
-                            />
-                          )}
-                          <span className="text-sm text-gray-700">
-                            <strong>
-                              {language.data === "en"
-                                ? pricingData[0][feature]
-                                : pricingData[0][`${feature}_th`]}
-                              :
-                            </strong>{" "}
-                            {data[feature] === true
-                              ? "Available"
-                              : data[feature] === false
-                                ? "Not Available"
-                                : language.data === "en"
-                                  ? data[feature]
-                                  : data[`${feature}_th`]}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                <div className="mt-5 flex flex-wrap items-baseline gap-x-2">
+                  <span className="text-4xl font-bold tabular-nums text-icon-color">
+                    {priceText}
+                  </span>
+                  {!monthprice && price.monthValue > 0 && (
+                    <span className="text-lg tabular-nums text-icon-color/40 line-through">
+                      {baht(price.monthValue * seats * 12)}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-1 text-sm text-icon-color/60">{period}</p>
+                <div className="mt-2 h-6">
+                  {!monthprice && price.yearValue > 0 && (
+                    <span className="inline-flex rounded-full bg-success-color/10 px-2.5 py-0.5 text-xs font-semibold text-success-color">
+                      {SubscriptionDataLanguage.only(lang)}{" "}
+                      {Math.round(
+                        (price.yearValue * seats) / 12,
+                      ).toLocaleString()}
+                      ฿{SubscriptionDataLanguage.month_unit(lang)}
+                    </span>
+                  )}
                 </div>
 
-                <div className="mt-auto">
-                  {data.price.permember ? (
+                <div className="mt-4">
+                  {price.permember ? (
                     <div className="flex flex-col gap-2">
+                      <label className="text-xs font-medium text-icon-color/70">
+                        {SubscriptionDataLanguage.members_label(lang)}
+                      </label>
                       <InputNumber
                         placeholder="Enter number of members"
                         min={4}
@@ -435,37 +307,79 @@ const SubscriptionPlan = () => {
                         value={members}
                         onValueChange={() => {}}
                         onChange={(value) => {
-                          setMembers(value);
+                          if (value > 3 && value <= 500) {
+                            setMembers(value);
+                          } else if (value < 4) {
+                            setMembers(4);
+                          } else if (value > 500) {
+                            setMembers(500);
+                          }
                         }}
                       />
-                      <a
-                        href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-up`}
-                        className={`block text-center w-full transform rounded-2xl border-2 border-black py-3 font-semibold transition-transform hover:scale-105 ${colorScheme.button}`}
-                      >
-                        Get Started
+                      <a href={signUpUrl} className={ctaClass}>
+                        {SubscriptionDataLanguage.get_started(lang)}
                       </a>
                     </div>
-                  ) : data.price.month === "ไม่มี" && monthprice === true ? (
-                    <div
-                      className={`flex w-full transform cursor-not-allowed items-center justify-center rounded-2xl border-2 border-black bg-gray-300 py-3 font-semibold text-gray-500 transition-transform hover:scale-105`}
-                    >
-                      Not Available
+                  ) : monthlyUnavailable ? (
+                    <div className="flex h-12 w-full cursor-not-allowed items-center justify-center rounded-full bg-background-color text-sm font-semibold text-icon-color/40">
+                      {SubscriptionDataLanguage.not_available(lang)}
                     </div>
                   ) : (
-                    <a
-                      href={`${process.env.NEXT_PUBLIC_MAIN_CLIENT_URL}/auth/sign-up`}
-                      className={`block text-center w-full transform rounded-2xl border-2 border-black py-3 font-semibold transition-transform hover:scale-105 ${colorScheme.button}`}
-                    >
-                      Get Started
+                    <a href={signUpUrl} className={ctaClass}>
+                      {SubscriptionDataLanguage.get_started(lang)}
                     </a>
                   )}
                 </div>
+
+                <div className="mt-5 flex items-center gap-2.5 rounded-2xl bg-primary-color/5 px-3.5 py-3 ring-1 ring-primary-color/15">
+                  <HiSparkles className="h-5 w-5 shrink-0 text-primary-color" />
+                  <span className="text-sm font-semibold text-icon-color">
+                    {SubscriptionDataLanguage.ai_quiz_per_month(
+                      lang,
+                      plan.aiQuiz,
+                    )}
+                  </span>
+                </div>
+
+                <ul className="mt-5 space-y-3 border-t border-icon-color/10 pt-5">
+                  {featureLabels.map((feature) => {
+                    const value = plan.features[feature.key];
+                    return (
+                      <li
+                        key={feature.key}
+                        className="flex items-start gap-2.5"
+                      >
+                        {value === false ? (
+                          <FiX className="mt-0.5 h-4 w-4 shrink-0 text-icon-color/30" />
+                        ) : (
+                          <FiCheck className="mt-0.5 h-4 w-4 shrink-0 text-success-color" />
+                        )}
+                        <span
+                          className={`text-sm ${
+                            value === false
+                              ? "text-icon-color/40"
+                              : "text-icon-color/80"
+                          }`}
+                        >
+                          <span className="font-medium">
+                            {lang === "en" ? feature.en : feature.th}:
+                          </span>{" "}
+                          {value === true
+                            ? SubscriptionDataLanguage.available(lang)
+                            : value === false
+                              ? SubscriptionDataLanguage.not_available(lang)
+                              : value[lang]}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             );
           })}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 export default SubscriptionPlan;
