@@ -509,6 +509,44 @@ export const HomeDataLanguage = {
     }
   },
 
+  // Mascots
+  mascots_heading: (language: Language) => {
+    switch (language) {
+      case "th":
+        return "รู้จักตัวละครประจำห้องเรียน";
+      case "en":
+      default:
+        return "Meet the class";
+    }
+  },
+  mascots_body: (language: Language) => {
+    switch (language) {
+      case "th":
+        return "นักเรียนแต่ละคนเลือกตัวละครของตัวเองได้ และเมื่อได้คะแนน ตัวละครก็จะเต้นฉลองไปด้วย";
+      case "en":
+      default:
+        return "Every student picks a character, and it cheers whenever they earn points.";
+    }
+  },
+  mascots_hint: (language: Language) => {
+    switch (language) {
+      case "th":
+        return "แตะที่ตัวละครเพื่อทักทาย";
+      case "en":
+      default:
+        return "Tap a character to say hi.";
+    }
+  },
+  mascot_play_label: (language: Language, number: number) => {
+    switch (language) {
+      case "th":
+        return `เล่นแอนิเมชันตัวละครที่ ${number}`;
+      case "en":
+      default:
+        return `Play character ${number}'s animation`;
+    }
+  },
+
   // Testimonials
   testimonials_heading: (language: Language) => {
     switch (language) {

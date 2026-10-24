@@ -2,6 +2,7 @@ import type { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import FeatureExplorer from "../components/home/FeatureExplorer";
+import MascotClass from "../components/home/MascotClass";
 import {
   FloatingSchoolBadges,
   PlanLegend,
@@ -163,6 +164,8 @@ export default function Home({ heroSchools, testimonials }: Props) {
         </section>
 
         <FeatureExplorer language={lang} />
+
+        <MascotClass language={lang} />
 
         <VideoTour language={lang} />
 
