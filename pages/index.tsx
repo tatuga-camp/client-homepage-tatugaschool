@@ -145,6 +145,8 @@ export default function Home({ heroSchools, testimonials }: Props) {
           )}
         </section>
 
+        <MascotClass language={lang} />
+
         {/* Usage numbers, set as a sentence rather than a stat band. */}
         <section className="border-y border-icon-color/10 bg-white">
           <p className="mx-auto max-w-5xl px-4 py-14 text-center text-2xl leading-relaxed text-icon-color/80 sm:px-6 sm:text-3xl sm:leading-relaxed">
@@ -164,8 +166,6 @@ export default function Home({ heroSchools, testimonials }: Props) {
         </section>
 
         <FeatureExplorer language={lang} />
-
-        <MascotClass language={lang} />
 
         <VideoTour language={lang} />
 

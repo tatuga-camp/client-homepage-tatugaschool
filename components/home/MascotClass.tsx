@@ -57,7 +57,7 @@ function MascotTile({
   }, [clip]);
 
   return (
-    <li>
+    <li className="w-[calc((100%-1.5rem)/3)] sm:w-[calc((100%-4rem)/5)] lg:w-[calc((100%-6rem)/7)]">
       <button
         type="button"
         onClick={onTap}
@@ -69,7 +69,7 @@ function MascotTile({
           src={mascot.poster}
           alt=""
           draggable={false}
-          sizes="(min-width: 1024px) 110px, (min-width: 640px) 20vw, 25vw"
+          sizes="(min-width: 1024px) 150px, (min-width: 640px) 20vw, 33vw"
           className={`object-contain ${shown ? "opacity-0" : "opacity-100"}`}
         />
         {clip && (
@@ -184,7 +184,7 @@ function MascotClass({ language }: { language: Language }) {
             {HomeDataLanguage.mascots_body(language)}
           </p>
         </div>
-        <ul className="mt-12 grid grid-cols-4 gap-3 sm:grid-cols-5 sm:gap-4 lg:grid-cols-10">
+        <ul className="mt-12 flex flex-wrap justify-center gap-3 sm:gap-4">
           {MASCOTS.map((mascot, index) => (
             <MascotTile
               key={mascot.id}
