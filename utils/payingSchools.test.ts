@@ -1,8 +1,10 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
+  FALLBACK_TOTALS,
   parsePayingSchoolsFile,
   pickHeroSchools,
+  resolveUsageNumbers,
   type PaidPlan,
 } from "./payingSchools";
 
@@ -80,4 +82,65 @@ test("pickHeroSchools interleaves plans and respects the limit", () => {
 test("pickHeroSchools returns everything when there are fewer schools than the limit", () => {
   const parsed = parsePayingSchoolsFile(file([school("B1", "BASIC")]))!;
   assert.equal(pickHeroSchools(parsed, 12).schools.length, 1);
+});
+
+const TOTALS = { schools: 5300, users: 6400, students: 121500 };
+
+test("totals are null when the file has none (published by an older scheduler)", () => {
+  assert.equal(parsePayingSchoolsFile(file([]))?.totals, null);
+});
+
+test("totals are read as whole numbers", () => {
+  const parsed = parsePayingSchoolsFile({
+    ...file([]),
+    totals: { schools: 5300.9, users: 6400, students: 121500 },
+  });
+  assert.deepEqual(parsed?.totals, TOTALS);
+});
+
+test("one missing, zero or malformed total discards all three", () => {
+  const withTotals = (totals: unknown) =>
+    parsePayingSchoolsFile({ ...file([]), totals })?.totals;
+  assert.equal(withTotals({ schools: 5300, users: 6400 }), null);
+  assert.equal(withTotals({ ...TOTALS, students: 0 }), null);
+  assert.equal(withTotals({ ...TOTALS, users: "6400" }), null);
+  assert.equal(withTotals({ ...TOTALS, schools: -1 }), null);
+  assert.equal(withTotals("nope"), null);
+  assert.equal(withTotals(null), null);
+});
+
+test("pickHeroSchools carries the totals and the publish time through", () => {
+  const parsed = parsePayingSchoolsFile({ ...file([]), totals: TOTALS })!;
+  const hero = pickHeroSchools(parsed, 4);
+  assert.deepEqual(hero.totals, TOTALS);
+  assert.equal(hero.generatedAt, "2026-10-04T00:00:00.000Z");
+});
+
+test("resolveUsageNumbers serves the published totals with their date", () => {
+  const parsed = parsePayingSchoolsFile({ ...file([]), totals: TOTALS })!;
+  assert.deepEqual(resolveUsageNumbers(pickHeroSchools(parsed, 4)), {
+    totals: TOTALS,
+    updatedAt: "2026-10-04T00:00:00.000Z",
+  });
+});
+
+test("resolveUsageNumbers falls back to the last hand-set figures, undated", () => {
+  const fallback = { totals: FALLBACK_TOTALS, updatedAt: null };
+  // No file at all (local dev, or the CDN fetch failed on a cold server).
+  assert.deepEqual(resolveUsageNumbers(null), fallback);
+  // A file from a scheduler that does not publish totals yet.
+  const older = parsePayingSchoolsFile(file([school("B1", "BASIC")]))!;
+  assert.deepEqual(resolveUsageNumbers(pickHeroSchools(older, 4)), fallback);
+});
+
+test("resolveUsageNumbers drops a publish time that is not a date", () => {
+  const parsed = parsePayingSchoolsFile({
+    ...file([]),
+    generatedAt: "yesterday-ish",
+    totals: TOTALS,
+  })!;
+  assert.deepEqual(resolveUsageNumbers(pickHeroSchools(parsed, 4)), {
+    totals: TOTALS,
+    updatedAt: null,
+  });
 });

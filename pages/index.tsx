@@ -9,6 +9,7 @@ import {
   SchoolBadgeMarquee,
 } from "../components/home/PayingSchools";
 import Testimonials from "../components/home/Testimonials";
+import UsageNumbers from "../components/home/UsageNumbers";
 import VideoTour from "../components/home/VideoTour";
 import SEOHead from "../components/seo/SEOHead";
 import StructuredData from "../components/seo/StructuredData";
@@ -18,7 +19,10 @@ import { useGetLanguage } from "../react-query";
 import { useGetUser } from "../react-query/user";
 import { getHeroSchools } from "../services/paying-schools";
 import { getTestimonials, type Testimonial } from "../services/testimonial";
-import { type HeroSchools } from "../utils/payingSchools";
+import {
+  resolveUsageNumbers,
+  type HeroSchools,
+} from "../utils/payingSchools";
 
 type Props = {
   heroSchools: HeroSchools | null;
@@ -147,23 +151,10 @@ export default function Home({ heroSchools, testimonials }: Props) {
 
         <MascotClass language={lang} />
 
-        {/* Usage numbers, set as a sentence rather than a stat band. */}
-        <section className="border-y border-icon-color/10 bg-white">
-          <p className="mx-auto max-w-5xl px-4 py-14 text-center text-2xl leading-relaxed text-icon-color/80 sm:px-6 sm:text-3xl sm:leading-relaxed">
-            {HomeDataLanguage.proof_sentence(lang).map((part, index) =>
-              "strong" in part && part.strong ? (
-                <strong
-                  key={index}
-                  className="font-bold tabular-nums text-icon-color"
-                >
-                  {part.text}
-                </strong>
-              ) : (
-                <span key={index}>{part.text}</span>
-              ),
-            )}
-          </p>
-        </section>
+        <UsageNumbers
+          usage={resolveUsageNumbers(heroSchools)}
+          language={lang}
+        />
 
         <FeatureExplorer language={lang} />
 

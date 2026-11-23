@@ -1,5 +1,5 @@
 import { Language } from "./subscription";
-import type { PaidPlan } from "../../utils/payingSchools";
+import type { PaidPlan, PlatformTotals } from "../../utils/payingSchools";
 
 export const HomeDataLanguage = {
   tatuga_school: (language: Language) => {
@@ -147,29 +147,37 @@ export const HomeDataLanguage = {
     }
   },
 
-  // Usage numbers, typeset as one sentence. `strong` parts are the figures.
-  proof_sentence: (language: Language) => {
+  // Usage numbers: totals from the scheduler's public file, counted once a day.
+  usage_heading: (language: Language) => {
     switch (language) {
       case "th":
-        return [
-          { text: "โรงเรียน " },
-          { text: "5,196", strong: true },
-          { text: " แห่ง ผู้ใช้งาน " },
-          { text: "6,138", strong: true },
-          { text: " คน และนักเรียน " },
-          { text: "119,229", strong: true },
-          { text: " คน ใช้ Tatuga School อยู่แล้ว" },
+        return "ตัวเลขผู้ใช้งาน Tatuga School";
+      case "en":
+      default:
+        return "Tatuga School in numbers";
+    }
+  },
+  usage_label: (language: Language, figure: keyof PlatformTotals) => {
+    switch (language) {
+      case "th":
+        return { schools: "โรงเรียน", users: "คุณครู", students: "นักเรียน" }[
+          figure
         ];
       case "en":
       default:
-        return [
-          { text: "5,196", strong: true },
-          { text: " schools, " },
-          { text: "6,138", strong: true },
-          { text: " users and " },
-          { text: "119,229", strong: true },
-          { text: " students already use Tatuga School." },
+        return { schools: "schools", users: "teachers", students: "students" }[
+          figure
         ];
+    }
+  },
+  /** `date` is already written out in the visitor's language. */
+  usage_updated: (language: Language, date: string) => {
+    switch (language) {
+      case "th":
+        return `ตัวเลขจริง อัปเดตล่าสุด ${date}`;
+      case "en":
+      default:
+        return `Real figures, last updated ${date}.`;
     }
   },
 
