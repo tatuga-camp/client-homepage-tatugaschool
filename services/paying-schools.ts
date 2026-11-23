@@ -2,7 +2,8 @@
  * Reads the paying-schools JSON that the scheduler publishes to the CDN
  * (Cloudflare R2 public bucket) every few hours. Visitors never reach the API
  * or the database: the homepage only reads this static file, and keeps it in
- * memory between requests.
+ * memory between requests. The file also carries the totals behind the usage
+ * numbers (utils/payingSchools, resolveUsageNumbers).
  *
  * Server-only — call it from getServerSideProps / getStaticProps. Import it by
  * its deep path, not through the `services/index.ts` barrel.
